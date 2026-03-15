@@ -1,7 +1,6 @@
 {
-  "name": "@repo/common-in-backend",
+  "name": "@repo/types",
   "version": "1.0.0",
-  "description": "",
   "type": "module",
   "scripts": {
     "build": "tsc"
@@ -16,9 +15,7 @@
   },
   "devDependencies": {
     "@repo/typescript-config": "workspace:*",
-    "@types/node": "^22.15.3"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+    "@types/node": "^22.15.3",
+    "zod": "^4.3.6"
+  }
 }

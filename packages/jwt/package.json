@@ -1,6 +1,7 @@
 {
-  "name": "@repo/common-in-apps",
+  "name": "@repo/jwt",
   "version": "1.0.0",
+  "description": "",
   "type": "module",
   "scripts": {
     "build": "tsc"
@@ -15,7 +16,9 @@
   },
   "devDependencies": {
     "@repo/typescript-config": "workspace:*",
-    "@types/node": "^22.15.3",
-    "zod": "^4.3.6"
-  }
+    "@types/node": "^22.15.3"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }

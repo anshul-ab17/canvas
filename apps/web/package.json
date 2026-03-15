@@ -13,8 +13,10 @@
   "dependencies": {
     "@repo/ui": "workspace:*",
     "next": "16.1.0",
+    "perfect-freehand": "^1.2.3",
     "react": "^19.2.0",
-    "react-dom": "^19.2.0"
+    "react-dom": "^19.2.0",
+    "roughjs": "^4.6.6"
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",

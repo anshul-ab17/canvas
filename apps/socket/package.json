@@ -6,19 +6,19 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc -b",
-    "dev": "node dist/index.js",
+    "dev": "echo \"Socket is now part of apps/server\"",
     "start": "tsc -b && node dist/index.js"
   },
   "dependencies": {
+    "@repo/db": "workspace:*",
     "dotenv": "^17.2.3",
     "jsonwebtoken": "^9.0.3",
     "ws": "^8.19.0"
   },
   "devDependencies": {
     "@repo/typescript-config": "workspace:*",
-    "@repo/common-in-apps": "workspace:*",
-    "@repo/common-in-backend": "workspace:*",
-    "@repo/db": "workspace:*",
+    "@repo/types": "workspace:*",
+    "@repo/jwt": "workspace:*",
     "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^22.15.3",
     "@types/ws": "^8.18.1",

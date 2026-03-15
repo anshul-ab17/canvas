@@ -1,38 +1,22 @@
 {
-  "extends":"@repo/typescript-config/base.json",
-  "compilerOptions": { 
+  "extends": "@repo/typescript-config/base.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@repo/db": ["../../packages/db/src/index.ts"],
+      "@repo/db/*": ["../../packages/db/src/*"]
+    },
     "rootDir": "./src",
-    "outDir": "./dist",  
-    "target": "esnext",  
+    "outDir": "./dist",
+    "module": "nodenext",
+    "target": "esnext",
     "lib": ["esnext"],
     "types": ["node"],
-    // and npm install -D @types/node
-
-    // Other Outputs
     "sourceMap": true,
     "declaration": true,
     "declarationMap": true,
-
-    // Stricter Typechecking Options
     "noUncheckedIndexedAccess": true,
-    "exactOptionalPropertyTypes": true,
-
-    // Style Options
-    // "noImplicitReturns": true,
-    // "noImplicitOverride": true,
-    // "noUnusedLocals": true,
-    // "noUnusedParameters": true,
-    // "noFallthroughCasesInSwitch": true,
-    // "noPropertyAccessFromIndexSignature": true,
-
-    // Recommended Options
-    "strict": true,
-    "jsx": "react-jsx",
-    "verbatimModuleSyntax": true,
-    "isolatedModules": true,
-    "noUncheckedSideEffectImports": true,
-    "moduleDetection": "force",
-    "skipLibCheck": true,
+    "exactOptionalPropertyTypes": true
   },
   "include": ["src"]
 }
