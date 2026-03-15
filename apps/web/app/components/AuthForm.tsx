@@ -42,8 +42,8 @@ export default function AuthForm() {
 
   return (
     <div style={{ background: "white", padding: 40, borderRadius: 16, boxShadow: "0 4px 24px rgba(0,0,0,0.1)", width: 380 }}>
-      <h1 style={{ margin: "0 0 8px", fontSize: 28, fontWeight: 700 }}>✏️ Excalidraw</h1>
-      <p style={{ margin: "0 0 32px", color: "#6c757d", fontSize: 14 }}>Collaborative drawing board</p>
+      <h1 style={{ margin: "0 0 8px", fontSize: 28, fontWeight: 700, color: "#e03131" }}>✏️ Canvas</h1>
+      <p style={{ margin: "0 0 32px", color: "#6c757d", fontSize: 14 }}>Sign in to save boards and collaborate in real-time</p>
 
       <div style={{ display: "flex", gap: 8, marginBottom: 24, background: "#f1f3f5", padding: 4, borderRadius: 8 }}>
         {(["signin", "signup"] as const).map((m) => (
@@ -77,11 +77,19 @@ export default function AuthForm() {
         {error && <p style={{ color: "#e03131", fontSize: 13, margin: 0 }}>{error}</p>}
         <button type="submit" disabled={loading} style={{
           marginTop: 8, padding: "10px 16px", borderRadius: 8, fontSize: 14, fontWeight: 500,
-          background: "#6965db", color: "white", border: "none", cursor: loading ? "not-allowed" : "pointer", opacity: loading ? 0.7 : 1,
+          background: "#e03131", color: "white", border: "none", cursor: loading ? "not-allowed" : "pointer", opacity: loading ? 0.7 : 1,
         }}>
           {loading ? "Loading..." : mode === "signin" ? "Sign In" : "Create Account"}
         </button>
       </form>
+
+      <div style={{ marginTop: 20, textAlign: "center" }}>
+        <button onClick={() => router.push("/")} style={{
+          background: "none", border: "none", color: "#6c757d", fontSize: 13, cursor: "pointer", textDecoration: "underline"
+        }}>
+          Continue drawing without signing in
+        </button>
+      </div>
     </div>
   );
 }

@@ -1,5 +1,5 @@
 import { WebSocketServer, WebSocket } from "ws";
-import { IncomingMessage } from "http";
+import { IncomingMessage, Server } from "http";
 import { JWT_SECRET } from "@repo/jwt";
 import jwt from "jsonwebtoken";
 import {
@@ -80,8 +80,8 @@ async function handleMessage(ws: WebSocket, raw: string) {
   }
 }
 
-export function initSocketServer(port: number) {
-  const wss = new WebSocketServer({ port });
+export function initSocketServer(server: Server) {
+  const wss = new WebSocketServer({ server });
 
   wss.on("connection", (ws: WebSocket, request: IncomingMessage) => {
     const url = request.url;
@@ -115,6 +115,6 @@ export function initSocketServer(port: number) {
     });
   });
 
-  console.log(`WebSocket server running on port ${port}`);
+  console.log("WebSocket server started.");
   return wss;
 }

@@ -1,9 +1,5 @@
-import AuthForm from "./components/AuthForm";
+import GuestCanvas from "./components/GuestCanvas";
 
-export default function AuthPage() {
-  return (
-    <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center" }}>
-      <AuthForm />
-    </div>
-  );
+export default function HomePage() {
+  return <GuestCanvas />;
 }

@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { getStroke } from "perfect-freehand";
 import rough from "roughjs";
 
-type Tool = "selection" | "rectangle" | "ellipse" | "line" | "arrow" | "pencil" | "text" | "eraser";
+type Tool = "selection" | "rectangle" | "diamond" | "ellipse" | "line" | "arrow" | "pencil" | "text" | "eraser";
 
 interface ExcaliElement {
   id: string;
@@ -64,6 +64,11 @@ function renderElement(
     case "rectangle":
       rc.rectangle(el.x, el.y, el.width, el.height, opts);
       break;
+    case "diamond": {
+      const cx = el.x + el.width / 2, cy = el.y + el.height / 2;
+      rc.polygon([[cx, el.y], [el.x + el.width, cy], [cx, el.y + el.height], [el.x, cy]], opts);
+      break;
+    }
     case "ellipse":
       rc.ellipse(el.x + el.width / 2, el.y + el.height / 2, Math.abs(el.width), Math.abs(el.height), opts);
       break;
@@ -99,7 +104,7 @@ function renderElement(
 }
 
 const COLORS = ["#1e1e1e","#e03131","#2f9e44","#1971c2","#f08c00","#7048e8","#c2255c","#ffffff"];
-const BG_COLORS = ["transparent","#ffc9c9","#b2f2bb","#a5d8ff","#ffec99","#d0bfff","#fcc2d7"];
+const BG_COLORS = ["transparent","#ffc9c9","#b2f2bb","#a5d8ff","#ffec99","#fca5a5","#fcc2d7"];
 
 export default function CanvasRoom({ slug }: { slug: string }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -145,7 +150,7 @@ export default function CanvasRoom({ slug }: { slug: string }) {
   // Fetch room + connect WebSocket
   useEffect(() => {
     const token = localStorage.getItem("token");
-    if (!token) { router.push("/"); return; }
+    if (!token) { router.push("/signin"); return; }
 
     async function init() {
       const res = await fetch(`http://localhost:3002/room/${slug}`, {
@@ -154,7 +159,7 @@ export default function CanvasRoom({ slug }: { slug: string }) {
       if (!res.ok) { router.push("/dashboard"); return; }
       const data = await res.json();
 
-      const ws = new WebSocket(`ws://localhost:3001?token=${token}`);
+      const ws = new WebSocket(`ws://localhost:3002?token=${token}`);
       wsRef.current = ws;
 
       ws.onopen = () => {
@@ -367,6 +372,15 @@ export default function CanvasRoom({ slug }: { slug: string }) {
     wsRef.current?.send(JSON.stringify({ type: "clear" }));
   }
 
+  function downloadCanvas() {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const link = document.createElement("a");
+    link.download = `${slug}.png`;
+    link.href = canvas.toDataURL("image/png");
+    link.click();
+  }
+
   function copyLink() {
     navigator.clipboard.writeText(window.location.href);
     setCopied(true);
@@ -376,6 +390,7 @@ export default function CanvasRoom({ slug }: { slug: string }) {
   const tools: { id: Tool; icon: string; label: string }[] = [
     { id: "selection", icon: "↖", label: "Select" },
     { id: "rectangle", icon: "▭", label: "Rectangle" },
+    { id: "diamond", icon: "◇", label: "Diamond" },
     { id: "ellipse", icon: "○", label: "Ellipse" },
     { id: "line", icon: "╱", label: "Line" },
     { id: "arrow", icon: "→", label: "Arrow" },
@@ -406,7 +421,7 @@ export default function CanvasRoom({ slug }: { slug: string }) {
           transform: "translate(-2px, -2px)", zIndex: 50
         }}>
           <div style={{ fontSize: 18 }}>🖱</div>
-          <div style={{ background: "#6965db", color: "white", padding: "2px 6px", borderRadius: 4, fontSize: 11, marginTop: -4 }}>
+          <div style={{ background: "#e03131", color: "white", padding: "2px 6px", borderRadius: 4, fontSize: 11, marginTop: -4 }}>
             {c.userId.slice(0, 6)}
           </div>
         </div>
@@ -421,9 +436,9 @@ export default function CanvasRoom({ slug }: { slug: string }) {
           <button key={t.id} onClick={() => setCurrentTool(t.id)} title={t.label}
             style={{
               width: 36, height: 36, borderRadius: 8, fontSize: 16,
-              background: currentTool === t.id ? "#f1f0ff" : "transparent",
-              color: currentTool === t.id ? "#6965db" : "#495057",
-              border: currentTool === t.id ? "1px solid #d0bfff" : "1px solid transparent",
+              background: currentTool === t.id ? "#fff5f5" : "transparent",
+              color: currentTool === t.id ? "#e03131" : "#495057",
+              border: currentTool === t.id ? "1px solid #fca5a5" : "1px solid transparent",
               transition: "all 0.15s", display: "flex", alignItems: "center", justifyContent: "center"
             }}>
             {t.icon}
@@ -443,7 +458,7 @@ export default function CanvasRoom({ slug }: { slug: string }) {
               <button key={c} onClick={() => setStrokeColor(c)}
                 style={{
                   width: 22, height: 22, borderRadius: 4, background: c,
-                  border: strokeColor === c ? "2px solid #6965db" : "1.5px solid #dee2e6",
+                  border: strokeColor === c ? "2px solid #e03131" : "1.5px solid #dee2e6",
                   cursor: "pointer"
                 }} />
             ))}
@@ -458,7 +473,7 @@ export default function CanvasRoom({ slug }: { slug: string }) {
                 style={{
                   width: 22, height: 22, borderRadius: 4,
                   background: c === "transparent" ? "white" : c,
-                  border: bgColor === c ? "2px solid #6965db" : "1.5px solid #dee2e6",
+                  border: bgColor === c ? "2px solid #e03131" : "1.5px solid #dee2e6",
                   cursor: "pointer",
                   backgroundImage: c === "transparent" ? "linear-gradient(45deg, #ccc 25%, transparent 25%, transparent 75%, #ccc 75%), linear-gradient(45deg, #ccc 25%, transparent 25%, transparent 75%, #ccc 75%)" : "none",
                   backgroundSize: c === "transparent" ? "8px 8px" : "auto",
@@ -471,20 +486,20 @@ export default function CanvasRoom({ slug }: { slug: string }) {
         <div>
           <div style={{ fontSize: 11, fontWeight: 600, color: "#6c757d", marginBottom: 6, textTransform: "uppercase", letterSpacing: 0.5 }}>Stroke Width</div>
           <input type="range" min={1} max={8} value={strokeWidth} onChange={e => setStrokeWidth(+e.target.value)}
-            style={{ width: "100%", accentColor: "#6965db" }} />
+            style={{ width: "100%", accentColor: "#e03131" }} />
           <div style={{ fontSize: 11, color: "#6c757d", textAlign: "right" }}>{strokeWidth}px</div>
         </div>
 
         <div>
           <div style={{ fontSize: 11, fontWeight: 600, color: "#6c757d", marginBottom: 6, textTransform: "uppercase", letterSpacing: 0.5 }}>Roughness</div>
           <input type="range" min={0} max={3} step={0.5} value={roughness} onChange={e => setRoughness(+e.target.value)}
-            style={{ width: "100%", accentColor: "#6965db" }} />
+            style={{ width: "100%", accentColor: "#e03131" }} />
         </div>
 
         <div>
           <div style={{ fontSize: 11, fontWeight: 600, color: "#6c757d", marginBottom: 6, textTransform: "uppercase", letterSpacing: 0.5 }}>Opacity</div>
           <input type="range" min={10} max={100} value={opacity} onChange={e => setOpacity(+e.target.value)}
-            style={{ width: "100%", accentColor: "#6965db" }} />
+            style={{ width: "100%", accentColor: "#e03131" }} />
           <div style={{ fontSize: 11, color: "#6c757d", textAlign: "right" }}>{opacity}%</div>
         </div>
       </div>
@@ -501,6 +516,11 @@ export default function CanvasRoom({ slug }: { slug: string }) {
         <div style={{ width: 1, height: 24, background: "#dee2e6" }} />
         <button onClick={clearCanvas} title="Clear canvas"
           style={{ width: 32, height: 32, borderRadius: 6, fontSize: 14, border: "1px solid #dee2e6", background: "white", color: "#e03131" }}>🗑</button>
+        <div style={{ width: 1, height: 24, background: "#dee2e6" }} />
+        <button onClick={downloadCanvas} title="Download as PNG"
+          style={{ padding: "6px 12px", borderRadius: 6, fontSize: 13, border: "1px solid #dee2e6", background: "white", color: "#495057" }}>
+          ⬇ Download
+        </button>
         <div style={{ width: 1, height: 24, background: "#dee2e6" }} />
         <button onClick={copyLink}
           style={{ padding: "6px 12px", borderRadius: 6, fontSize: 13, border: "1px solid #dee2e6", background: copied ? "#2f9e44" : "white", color: copied ? "white" : "#495057", transition: "all 0.2s" }}>

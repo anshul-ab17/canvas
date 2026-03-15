@@ -12,7 +12,7 @@ export default function Dashboard() {
   const router = useRouter();
 
   useEffect(() => {
-    if (!localStorage.getItem("token")) { router.push("/"); return; }
+    if (!localStorage.getItem("token")) { router.push("/signin"); return; }
     fetchRooms();
   }, [router]);
 
@@ -51,7 +51,7 @@ export default function Dashboard() {
     <div style={{ maxWidth: 900, margin: "0 auto", padding: "40px 24px" }}>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 40 }}>
         <div>
-          <h1 style={{ margin: 0, fontSize: 28, fontWeight: 700 }}>✏️ My Boards</h1>
+          <h1 style={{ margin: 0, fontSize: 28, fontWeight: 700, color: "#e03131" }}>✏️ Canvas — My Boards</h1>
           <p style={{ margin: "4px 0 0", color: "#6c757d", fontSize: 14 }}>Create and join collaborative drawing rooms</p>
         </div>
         <div style={{ display: "flex", gap: 12 }}>
