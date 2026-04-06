@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "build": "npx tsc -b",
-    "dev": "node --env-file=.env dist/index.js",
+    "dev": "tsx watch src/index.ts",
     "start": "npx tsc -b && node dist"
   },
   "dependencies": {
@@ -25,7 +25,8 @@
     "@types/express": "^5.0.6",
     "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^22.15.3",
-    "@types/ws": "^8.18.1"
+    "@types/ws": "^8.18.1",
+    "tsx": "^4.21.0"
   },
   "keywords": [],
   "author": "",
