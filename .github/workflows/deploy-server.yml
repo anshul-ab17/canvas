@@ -1,0 +1,44 @@
+name: Deploy Backend (EC2)
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "apps/server/**"
+      - "packages/**"
+      - ".github/workflows/deploy-server.yml"
+
+jobs:
+  deploy:
+    name: Deploy to EC2
+    runs-on: ubuntu-latest
+    environment: production
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Deploy to EC2 via SSH
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ubuntu
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            set -e
+
+            # Pull latest code
+            cd /home/ubuntu/canvas
+            git pull origin main
+
+            # Install deps and build
+            pnpm install --frozen-lockfile
+            pnpm --filter @repo/db exec prisma generate
+            pnpm --filter @repo/db exec prisma migrate deploy
+            pnpm --filter server build
+
+            # Reload PM2 without downtime
+            pm2 reload ecosystem.config.cjs --update-env
+
+            # Save PM2 process list
+            pm2 save
