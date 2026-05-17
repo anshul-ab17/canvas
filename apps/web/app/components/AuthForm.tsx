@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { API_URL } from "../lib/config";
 
 export default function AuthForm() {
@@ -11,10 +11,14 @@ export default function AuthForm() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const searchParams = useSearchParams();
 
   useEffect(() => {
     if (localStorage.getItem("token")) router.push("/dashboard");
-  }, [router]);
+    if (searchParams.get("expired") === "1") {
+      setError("Your session expired. Please sign in again.");
+    }
+  }, [router, searchParams]);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -76,11 +80,13 @@ export default function AuthForm() {
         <div>
           <label style={{ display: "block", fontSize: 11, fontWeight: 700, marginBottom: 8, color: "var(--text-muted)", fontFamily: "'JetBrains Mono', monospace", textTransform: "uppercase" }}>Username</label>
           <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="min 8 characters" required minLength={8}
+            autoComplete="username"
             style={{ width: "100%", padding: "14px 16px", borderRadius: 12, border: "1.5px solid var(--border)", background: "var(--bg)", color: "var(--text)", outline: "none", fontFamily: "'Inter Tight', sans-serif" }} />
         </div>
         <div>
           <label style={{ display: "block", fontSize: 11, fontWeight: 700, marginBottom: 8, color: "var(--text-muted)", fontFamily: "'JetBrains Mono', monospace", textTransform: "uppercase" }}>Password</label>
           <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="min 8 characters" required minLength={8}
+            autoComplete={mode === "signup" ? "new-password" : "current-password"}
             style={{ width: "100%", padding: "14px 16px", borderRadius: 12, border: "1.5px solid var(--border)", background: "var(--bg)", color: "var(--text)", outline: "none", fontFamily: "'Inter Tight', sans-serif" }} />
         </div>
         {error && <p style={{ color: "#ff5f56", fontSize: 13, fontWeight: 600, margin: 0 }}>{error}</p>}

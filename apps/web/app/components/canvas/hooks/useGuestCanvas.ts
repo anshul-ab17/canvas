@@ -195,7 +195,7 @@ export function useGuestCanvas() {
     draw.currentTool === "hand" ? (zoom.isPanning ? "grabbing" : "grab") :
       draw.currentTool === "eraser" ? "cell" :
         draw.currentTool === "text" ? "text" :
-          draw.currentTool === "selection" ? draw.canvasCursor : "crosshair";
+          draw.canvasCursor;
 
   const textScreenX = draw.textInput ? draw.textInput.x * zoom.zoom + zoom.panOffset.x : 0;
   const textScreenY = draw.textInput ? draw.textInput.y * zoom.zoom + zoom.panOffset.y : 0;
@@ -222,6 +222,7 @@ export function useGuestCanvas() {
     selectedId: draw.selectedId,
     textInput: draw.textInput, setTextInput: draw.setTextInput,
     onMouseDown: draw.onMouseDown, onMouseMove: draw.onMouseMove, onMouseUp: draw.onMouseUp,
+    onDoubleClick: draw.onDoubleClick,
     commitText: draw.commitText, onTextBoxDragStart: draw.onTextBoxDragStart,
     deleteSelected: draw.deleteSelected, handleImageUpload: draw.handleImageUpload,
     // ai

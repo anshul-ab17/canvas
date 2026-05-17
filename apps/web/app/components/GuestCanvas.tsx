@@ -65,6 +65,7 @@ export default function GuestCanvas() {
         onMouseMove={c.onMouseMove}
         onMouseUp={c.onMouseUp}
         onMouseLeave={c.onMouseUp}
+        onDoubleClick={c.onDoubleClick}
       />
 
       {c.textInput && (
@@ -72,7 +73,6 @@ export default function GuestCanvas() {
           textInput={c.textInput}
           textScreenX={c.textScreenX}
           textScreenY={c.textScreenY}
-          strokeWidth={c.strokeWidth}
           strokeColor={c.strokeColor}
           fontSize={c.fontSize}
           fontFamily={c.fontFamily}

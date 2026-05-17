@@ -133,6 +133,18 @@ export function useGuestDrawing({
       return;
     }
 
+    // For drawing tools: if clicking on an existing shape, auto-switch to selection
+    const hitEl = [...(elementsRef.current ?? [])].reverse().find(el => hitTest(el, cx, cy, zoomRef.current!));
+    if (hitEl) {
+      toolRef.current = "selection";
+      setCurrentTool("selection");
+      selectedIdRef.current = hitEl.id;
+      setSelectedId(hitEl.id);
+      selDragRef.current = { mode: "move", handle: null, mouseStartX: cx, mouseStartY: cy, originalEl: { ...hitEl } };
+      setCanvasCursor("move");
+      return;
+    }
+
     const newEl: ExcaliElement = {
       id: genId(), type: tool,
       x: cx, y: cy, width: 0, height: 0,
@@ -188,7 +200,15 @@ export function useGuestDrawing({
       return;
     }
 
-    if (!isDrawingRef.current || !drawingElementRef.current) return;
+    if (!isDrawingRef.current || !drawingElementRef.current) {
+      // For drawing tools: show pointer when hovering over an existing element
+      const tool = toolRef.current;
+      if (tool !== "eraser" && tool !== "text") {
+        const hoverHit = [...(elementsRef.current ?? [])].reverse().find(el => hitTest(el, cx, cy, zoomRef.current!));
+        setCanvasCursor(hoverHit ? "pointer" : "crosshair");
+      }
+      return;
+    }
     const el = drawingElementRef.current;
     drawingElementRef.current = el.type === "pencil"
       ? { ...el, points: [...(el.points || []), [cx, cy]] }
@@ -296,6 +316,20 @@ export function useGuestDrawing({
     setCanvasCursor(t === "selection" ? "default" : "crosshair");
   }
 
+  function onDoubleClick(e: React.MouseEvent<HTMLCanvasElement>) {
+    const { x: cx, y: cy } = getCanvasCoords(e);
+    const hit = [...(elementsRef.current ?? [])].reverse().find(el => hitTest(el, cx, cy, zoomRef.current!));
+    if (!hit) return;
+    if (hit.type === "text") {
+      selectedIdRef.current = null;
+      setSelectedId(null);
+      setTextInput({ x: hit.x, y: hit.y, value: hit.text ?? "" });
+      // Remove the existing text element so it's replaced on commit
+      const next = (elementsRef.current ?? []).filter(el => el.id !== hit.id);
+      setElements(next);
+    }
+  }
+
   return {
     fileInputRef,
     currentTool, handleToolChange,
@@ -303,7 +337,7 @@ export function useGuestDrawing({
     canvasCursor,
     textInput, setTextInput,
     drawingElementRef,
-    onMouseDown, onMouseMove, onMouseUp,
+    onMouseDown, onMouseMove, onMouseUp, onDoubleClick,
     commitText, onTextBoxDragStart,
     deleteSelected, handleImageUpload,
   };

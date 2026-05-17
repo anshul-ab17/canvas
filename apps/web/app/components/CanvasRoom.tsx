@@ -69,7 +69,6 @@ export default function CanvasRoom({ slug }: { slug: string }) {
           textInput={c.textInput}
           textScreenX={c.textScreenX}
           textScreenY={c.textScreenY}
-          strokeWidth={c.strokeWidth}
           strokeColor={c.strokeColor}
           fontSize={c.fontSize}
           fontFamily={c.fontFamily}

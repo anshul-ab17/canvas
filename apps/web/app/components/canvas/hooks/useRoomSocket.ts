@@ -108,7 +108,7 @@ export function useRoomSocket({ slug, elementsRef, setElements, pushHistory }: U
       // 4001 = auth rejected (bad/expired token) — clear token and send to signin
       if (event.code === 4001) {
         localStorage.removeItem("token");
-        router.push("/signin");
+        router.push("/signin?expired=1");
         return;
       }
       scheduleReconnect();
@@ -138,7 +138,7 @@ export function useRoomSocket({ slug, elementsRef, setElements, pushHistory }: U
       });
       if (res.status === 401 || res.status === 403) {
         localStorage.removeItem("token");
-        router.push("/signin");
+        router.push("/signin?expired=1");
         return;
       }
       if (!res.ok) { router.push("/dashboard"); return; }
