@@ -59,6 +59,15 @@ export function useRoomSocket({ slug, elementsRef, setElements, pushHistory }: U
           liveRemoteRef.current.clear();
           applyElements(msg.elements);
           pushHistory(msg.elements);
+          if (msg.chats) {
+            setChatMessages(msg.chats.map((c: { userId: string; text: string; ts: number }) => ({
+              id: `${c.userId}-${c.ts}`,
+              userId: c.userId,
+              text: c.text,
+              ts: c.ts,
+              self: c.userId === myUserIdRef.current,
+            })));
+          }
           break;
         case "draw": {
           liveRemoteRef.current.delete(msg.userId);

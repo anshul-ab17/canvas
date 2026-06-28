@@ -7,6 +7,15 @@ export async function getRoomElements(roomId: number) {
   });
 }
 
+export async function getRoomChats(roomId: number, limit = 50) {
+  return prisma.chat.findMany({
+    where: { roomId },
+    orderBy: { createdAt: "asc" },
+    take: limit,
+    select: { userId: true, message: true, createdAt: true },
+  });
+}
+
 export async function upsertElement(
   id: string,
   roomId: number,

@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { CreateRoomSchema } from "@repo/types";
-import { createRoom, getAllRooms, getRoomBySlug } from "../services/room.service.js";
+import { createRoom, getUserRooms, getRoomBySlug, deleteRoom } from "../services/room.service.js";
 
 export async function postRoom(req: Request, res: Response) {
   const parsed = CreateRoomSchema.safeParse(req.body);
@@ -16,8 +16,8 @@ export async function postRoom(req: Request, res: Response) {
   }
 }
 
-export async function getRooms(_req: Request, res: Response) {
-  const rooms = await getAllRooms();
+export async function getRooms(req: Request, res: Response) {
+  const rooms = await getUserRooms(req.userId);
   res.json({ rooms });
 }
 
@@ -28,4 +28,13 @@ export async function getRoom(req: Request, res: Response) {
     return;
   }
   res.json({ room });
+}
+
+export async function removeRoom(req: Request, res: Response) {
+  const slug = req.params.slug as string;
+  const room = await getRoomBySlug(slug);
+  if (!room) { res.status(404).json({ message: "Room not found" }); return; }
+  if (room.adminId !== req.userId) { res.status(403).json({ message: "Only room admin can delete" }); return; }
+  await deleteRoom(room.id);
+  res.json({ deleted: true });
 }

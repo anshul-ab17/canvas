@@ -1,10 +1,17 @@
 import { prisma } from "@repo/db/client";
 import argon2 from "argon2";
 
-export async function createUser(username: string, password: string, _name: string) {
+export async function createUser(username: string, password: string, displayName: string) {
   const hash = await argon2.hash(password, { type: argon2.argon2id });
   return prisma.user.create({
-    data: { email: username, password: hash, username },
+    data: { password: hash, username, displayName: displayName || username },
+  });
+}
+
+export async function findUserById(id: string) {
+  return prisma.user.findUnique({
+    where: { id },
+    select: { id: true, username: true, displayName: true },
   });
 }
 

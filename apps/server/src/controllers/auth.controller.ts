@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { JWT_SECRET } from "@repo/jwt";
 import jwt from "jsonwebtoken";
 import { CreateUserSchema, SignInSchema } from "@repo/types";
-import { createUser, findUserByCredentials } from "../services/auth.service.js";
+import { createUser, findUserByCredentials, findUserById } from "../services/auth.service.js";
 
 function isUniqueConstraintError(err: unknown): boolean {
   return (
@@ -30,6 +30,17 @@ export async function signup(req: Request, res: Response) {
   }
 }
 
+export async function getMe(req: Request, res: Response) {
+  try {
+    const user = await findUserById(req.userId);
+    if (!user) { res.status(404).json({ message: "User not found" }); return; }
+    res.json({ id: user.id, username: user.username, displayName: user.displayName });
+  } catch (err) {
+    console.error("[getMe]", err);
+    res.status(500).json({ message: "Server error" });
+  }
+}
+
 export async function signin(req: Request, res: Response) {
   const parsed = SignInSchema.safeParse(req.body);
   if (!parsed.success) {
@@ -43,7 +54,7 @@ export async function signin(req: Request, res: Response) {
       return;
     }
     const token = jwt.sign({ userId: user.id }, JWT_SECRET, { expiresIn: "30d" });
-    res.json({ token });
+    res.json({ token, userId: user.id });
   } catch (err) {
     console.error("[signin]", err);
     res.status(500).json({ message: "Server error. Please try again." });

@@ -4,7 +4,7 @@ import {
   WsEraseSchema, WsCursorSchema, WsClearSchema, WsChatSchema,
 } from "@repo/types";
 import { ExcaliElement } from "@repo/types";
-import { getRoomElements, clearRoomElements } from "../services/socket.service.js";
+import { getRoomElements, getRoomChats, clearRoomElements } from "../services/socket.service.js";
 import { prisma } from "@repo/db/client";
 import { CachedEntry } from "./types.js";
 import { rooms, clients, roomCache, pendingUpserts, pendingDeletes, broadcast, broadcastAll } from "./state.js";
@@ -39,7 +39,13 @@ export async function handleMessage(ws: WebSocket, raw: string) {
       }
 
       const elements = Array.from(roomCache.get(roomId)!.values()).map((e) => e.element);
-      ws.send(JSON.stringify({ type: "init_room", elements }));
+
+      const chatRows = await getRoomChats(parseInt(roomId));
+      const chats = chatRows.map((c) => ({
+        userId: c.userId, text: c.message, ts: c.createdAt.getTime(),
+      }));
+
+      ws.send(JSON.stringify({ type: "init_room", elements, chats }));
       broadcast(roomId, ws, { type: "user_joined", userId: client.userId });
       break;
     }
