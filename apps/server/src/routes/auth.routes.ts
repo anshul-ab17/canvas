@@ -11,7 +11,7 @@ const authLimiter = rateLimit({
   message: { message: "Too many attempts — try again later" },
 });
 
-const router = Router();
+const router: ReturnType<typeof Router> = Router();
 
 router.post("/signup", authLimiter, signup);
 router.post("/signin", authLimiter, signin);
