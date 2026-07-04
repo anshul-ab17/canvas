@@ -87,7 +87,7 @@ Connect: `ws://host:3002?token=JWT`
 ## Deployment
 
 - **Frontend** → Vercel (auto-deploy on push via GitHub Actions)
-- **Backend** → EC2 via SSH + PM2 (`ecosystem.config.cjs`)
+- **Backend** → Hetzner via SSH + PM2 (`ecosystem.config.cjs`), nginx reverse proxy (`infra/nginx.conf`)
 - **Database** → PostgreSQL (external)
 - **CI** → GitHub Actions: type-check + lint on push/PR
 

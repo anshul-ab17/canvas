@@ -1,4 +1,4 @@
-name: Deploy Backend (EC2)
+name: Deploy Backend (Hetzner)
 
 on:
   push:
@@ -10,7 +10,7 @@ on:
 
 jobs:
   deploy:
-    name: Deploy to EC2
+    name: Deploy to Hetzner
     runs-on: ubuntu-latest
     environment: production
 
@@ -18,17 +18,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Deploy to EC2 via SSH
+      - name: Deploy to Hetzner via SSH
         uses: appleboy/ssh-action@v1
         with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ubuntu
-          key: ${{ secrets.EC2_SSH_KEY }}
+          host: ${{ secrets.HETZNER_HOST }}
+          username: ${{ secrets.HETZNER_USER }}
+          key: ${{ secrets.HETZNER_SSH_KEY }}
           script: |
             set -e
 
             # Pull latest code
-            cd /home/ubuntu/canvas
+            cd ~/canvas
             git pull origin main
 
             # Install deps and build
