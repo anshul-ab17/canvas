@@ -24,6 +24,10 @@ app.use((_req, res, next) => {
   next();
 });
 
+app.get("/health", (_req, res) => {
+ res.json({ ok: true })
+}); 
+
 app.use("/", authRoutes);
 app.use("/", roomRoutes);
 
