@@ -1,10 +1,12 @@
 "use client";
+// Force rebuild compilation comment
 import { useEffect, useRef, useState } from "react";
 import Navbar from "./hero/Navbar";
 import HeroSection from "./hero/HeroSection";
 import PreviewSection from "./hero/PreviewSection";
 import HowItWorks from "./hero/HowItWorks";
 import Features from "./hero/Features";
+import FAQ from "./hero/FAQ";
 import Footer from "./hero/Footer";
 
 export default function Hero() {
@@ -87,15 +89,10 @@ export default function Hero() {
       `}</style>
 
       {/* Grain */}
-      <svg className="grain" xmlns="http://www.w3.org/2000/svg">
+      <svg className="grain" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
         <filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch" /><feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .6 0" /></filter>
         <rect width="100%" height="100%" filter="url(#n)" />
       </svg>
-
-      {/* Corner ticks + rule line */}
-      <div style={{ position: "fixed", top: 58, left: 30, width: 12, height: 12, border: "1px solid var(--ink)", zIndex: 25 }} />
-      <div style={{ position: "fixed", top: 58, right: 30, width: 12, height: 12, border: "1px solid var(--ink)", zIndex: 25 }} />
-      <div style={{ position: "fixed", top: 64, left: 36, right: 36, height: 1, background: "var(--rule, #1B1814)", opacity: 0.7, zIndex: 25 }} />
 
       <Navbar 
         scrolled={scrolled} 
@@ -105,13 +102,15 @@ export default function Hero() {
         scrollTo={scrollTo} 
       />
 
-      <HeroSection scrollTo={scrollTo} />
+      <HeroSection scrollTo={scrollTo} addReveal={addReveal} />
+      
+      <Features addReveal={addReveal} />
       
       <PreviewSection addReveal={addReveal} />
       
       <HowItWorks addReveal={addReveal} />
-      
-      <Features addReveal={addReveal} />
+
+      <FAQ addReveal={addReveal} />
 
       <Footer />
     </div>
