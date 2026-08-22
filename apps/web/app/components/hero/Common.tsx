@@ -45,10 +45,14 @@ export function HardButton({ onClick, children, primary, ghost }: { onClick: () 
   );
 }
 
-export function SectionTag({ num, label, addReveal }: { num: string; label: string; addReveal?: (el: Element | null) => void }) {
+export function SectionTag({ num, label, addReveal, scale = 1 }: { num: string; label: string; addReveal?: (el: Element | null) => void; scale?: number }) {
+  const fontSize = 11 * scale;
+  const padding = `${3 * scale}px ${8 * scale}px`;
+  const gap = 14 * scale;
+  const marginBottom = 28 * scale;
   return (
-    <div ref={addReveal} className="reveal" style={{ fontFamily: "'JetBrains Mono',monospace", fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase" as const, color: INK_SOFT, display: "flex", alignItems: "center", gap: 14, marginBottom: 28 }}>
-      <span style={{ background: INK, color: PAPER, padding: "3px 8px", fontSize: 11 }}>{num}</span>
+    <div ref={addReveal} className="reveal" style={{ fontFamily: "'JetBrains Mono',monospace", fontSize, letterSpacing: "0.18em", textTransform: "uppercase" as const, color: INK_SOFT, display: "flex", alignItems: "center", gap, marginBottom }}>
+      <span style={{ background: INK, color: PAPER, padding, fontSize }}>{num}</span>
       <span>{label}</span>
       <span style={{ flex: 1, height: 1, background: "var(--rule, #1B1814)", opacity: 0.4 }} />
     </div>

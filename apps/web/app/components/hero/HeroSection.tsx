@@ -1,27 +1,131 @@
 "use client";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import { ACCENT, INK, PAPER, INK_SOFT, AMBER, BLUE, GREEN, PINK, ACCENT3, ACCENT4, HardButton } from "./Common";
+import { ACCENT, INK, PAPER, INK_SOFT, AMBER, BLUE, GREEN, PINK, ACCENT3, ACCENT4, HardButton, SectionTag } from "./Common";
+
+const HeroButton = ({ onClick, children, primary, ghost }: { onClick: () => void; children: React.ReactNode; primary?: boolean; ghost?: boolean }) => {
+  const [hov, setHov] = useState(false);
+  const base: React.CSSProperties = {
+    border: `1.2px solid var(--ink)`,
+    padding: "7px 12px",
+    fontFamily: "'Inter Tight',sans-serif",
+    fontWeight: 600,
+    fontSize: 11.5,
+    cursor: "pointer",
+    display: "inline-flex",
+    alignItems: "center",
+    gap: 8,
+    transition: "transform 0.25s, box-shadow 0.25s, background 0.2s",
+    transform: hov ? "translate(-1.5px,-1.5px)" : "translate(0,0)",
+  };
+  if (ghost) return (
+    <button onClick={onClick} onMouseEnter={() => setHov(true)} onMouseLeave={() => setHov(false)}
+      style={{ ...base, background: hov ? "var(--ink)" : "transparent", color: hov ? "var(--paper)" : "var(--ink)", boxShadow: "none" }}>
+      {children}
+    </button>
+  );
+  return (
+    <div
+      style={{
+        position: "relative",
+        display: "inline-block",
+        margin: "6px",
+        background: ACCENT,
+      }}
+    >
+      {/* Top-Left Bracket */}
+      <span
+        style={{
+          position: "absolute",
+          top: "0px",
+          left: "0px",
+          width: "12px",
+          height: "12px",
+          background: `radial-gradient(circle at 100% 100%, transparent 8px, var(--ink) 8.5px)`,
+          pointerEvents: "none",
+        }}
+      />
+      {/* Top-Right Bracket */}
+      <span
+        style={{
+          position: "absolute",
+          top: "0px",
+          right: "0px",
+          width: "12px",
+          height: "12px",
+          background: `radial-gradient(circle at 0% 100%, transparent 8px, var(--ink) 8.5px)`,
+          pointerEvents: "none",
+        }}
+      />
+      {/* Bottom-Left Bracket */}
+      <span
+        style={{
+          position: "absolute",
+          bottom: "0px",
+          left: "0px",
+          width: "12px",
+          height: "12px",
+          background: `radial-gradient(circle at 100% 0%, transparent 8px, var(--ink) 8.5px)`,
+          pointerEvents: "none",
+        }}
+      />
+      {/* Bottom-Right Bracket */}
+      <span
+        style={{
+          position: "absolute",
+          bottom: "0px",
+          right: "0px",
+          width: "12px",
+          height: "12px",
+          background: `radial-gradient(circle at 0% 0%, transparent 8px, var(--ink) 8.5px)`,
+          pointerEvents: "none",
+        }}
+      />
+
+      <button
+        onClick={onClick}
+        style={{
+          background: ACCENT,
+          color: "#ffffff",
+          border: "none",
+          borderRadius: "8px",
+          width: "220px",
+          height: "46px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          fontFamily: "'Inter Tight', sans-serif",
+          fontWeight: 700,
+          fontSize: 12.5,
+          letterSpacing: "0.02em",
+          cursor: "pointer",
+        }}
+      >
+        {children}
+      </button>
+    </div>
+  );
+};
 
 const LAYERS = [
   { depth: -180, ml: -260, mt: -180, orig: "translate3d(-30px,30px,-180px) rotateX(6deg) rotateY(-14deg) rotateZ(-3deg)" },
   { depth: -40, ml: -340, mt: -160, orig: "translate3d(0,0,-40px) rotateY(8deg)" },
   { depth: 40, ml: -200, mt: -130, orig: "translate3d(40px,-10px,40px) rotateX(-4deg) rotateY(10deg) rotateZ(2deg)" },
-  { depth: 100, ml: 120, mt: -220, orig: "translate3d(120px,-100px,100px) rotate(7deg)" },
+  { depth: 100, ml: 40, mt: -220, orig: "translate3d(120px,-100px,100px) rotate(7deg)" },
   { depth: 80, ml: -360, mt: 60, orig: "translate3d(-80px,80px,80px) rotate(-6deg)" },
-  { depth: 140, ml: 140, mt: 80, orig: "translate3d(140px,80px,140px) rotate(-4deg)" },
-  { depth: 160, ml: -340, mt: -220, orig: "translate3d(-40px,-120px,160px)" },
+  { depth: 140, ml: 60, mt: 80, orig: "translate3d(140px,80px,140px) rotate(-4deg)" },
+  { depth: 160, ml: -20, mt: -210, orig: "translate3d(0,-120px,160px)" },
   { depth: 200, ml: -40, mt: -40, orig: "translate3d(-20px,-30px,200px)" },
-  { depth: 220, ml: 120, mt: 0, orig: "translate3d(160px,40px,220px)" },
-  { depth: 60, ml: -300, mt: -30, orig: "translate3d(-180px,-20px,60px) rotate(45deg)" },
-  { depth: 120, ml: 300, mt: 120, orig: "translate3d(220px,140px,120px)" },
+  { depth: 220, ml: 50, mt: 0, orig: "translate3d(160px,40px,220px)" },
+  { depth: 60, ml: -140, mt: 20, orig: "translate3d(-40px,0,60px) rotate(45deg)" },
+  { depth: 120, ml: 160, mt: 120, orig: "translate3d(220px,140px,120px)" },
   { depth: 180, ml: -260, mt: 140, orig: "translate3d(-160px,160px,180px) rotate(-6deg)" },
-  { depth: 160, ml: 50, mt: -260, orig: "translate3d(60px,-180px,160px) rotate(4deg)" },
+  { depth: 160, ml: -20, mt: -260, orig: "translate3d(60px,-180px,160px) rotate(4deg)" },
 ] as const;
 
 function L(i: number) { return LAYERS[i]!; }
 
-export default function HeroSection({ scrollTo }: { scrollTo: (id: string) => void }) {
+export default function HeroSection({ scrollTo, addReveal }: { scrollTo: (id: string) => void; addReveal: (el: Element | null) => void }) {
   const router = useRouter();
   const stageRef = useRef<HTMLElement>(null);
   const sceneRef = useRef<HTMLDivElement>(null);
@@ -46,8 +150,8 @@ export default function HeroSection({ scrollTo }: { scrollTo: (id: string) => vo
       p.mouseNX = ((e.clientX - r.left) / r.width - 0.5) * 2;
       p.mouseNY = ((e.clientY - r.top) / r.height - 0.5) * 2;
       if (!p.dragging) {
-        p.targetRY = 8 + p.mouseNX * 14;
-        p.targetRX = -4 - p.mouseNY * 10;
+        p.targetRY = 8 + p.mouseNX * 10.5;
+        p.targetRX = -4 - p.mouseNY * 7.5;
       }
     };
     const onStageMD = (e: MouseEvent) => {
@@ -59,8 +163,8 @@ export default function HeroSection({ scrollTo }: { scrollTo: (id: string) => vo
     const onWinMU = () => { p.dragging = false; scene.style.transition = ""; };
     const onWinMM = (e: MouseEvent) => {
       if (!p.dragging) return;
-      p.targetRY = p.dragBase.ry + (e.clientX - p.dragStart.x) * 0.25;
-      p.targetRX = p.dragBase.rx - (e.clientY - p.dragStart.y) * 0.18;
+      p.targetRY = p.dragBase.ry + (e.clientX - p.dragStart.x) * 0.1875;
+      p.targetRX = p.dragBase.rx - (e.clientY - p.dragStart.y) * 0.135;
     };
 
     const tick = () => {
@@ -72,9 +176,9 @@ export default function HeroSection({ scrollTo }: { scrollTo: (id: string) => vo
         if (!el) return;
         const { depth, orig } = LAYERS[i] ?? {};
         if (depth === undefined) return;
-        const bob = Math.sin(t * 0.8 + i * 0.7) * (depth > 0 ? 4 : 2);
-        const px = p.mouseNX * depth * 0.05;
-        const py = p.mouseNY * depth * 0.05;
+        const bob = Math.sin(t * 0.8 + i * 0.7) * (depth > 0 ? 3 : 1.5);
+        const px = p.mouseNX * depth * 0.0375;
+        const py = p.mouseNY * depth * 0.0375;
         el.style.transform = `${orig} translate3d(${px}px,${py + bob}px,0)`;
       });
       p.raf = requestAnimationFrame(tick);
@@ -95,51 +199,49 @@ export default function HeroSection({ scrollTo }: { scrollTo: (id: string) => vo
   }, []);
 
   return (
-    <section style={{ position: "relative", height: "100vh", overflow: "hidden" }}>
-      <div className="hero-main-grid" style={{ position: "relative", height: "100%", display: "grid", gridTemplateColumns: "1.05fr 1fr", alignItems: "center", padding: "80px 56px 60px", gap: 32, zIndex: 5 }}>
+    <section style={{ position: "relative", height: "99vh", overflow: "hidden", background: "var(--paper)" }}>
+      <div className="hero-main-grid" style={{
+        position: "relative",
+        height: "100%",
+        display: "grid",
+        gridTemplateRows: "auto 1fr",
+        gridTemplateColumns: "1.05fr 1fr",
+        alignItems: "start",
+        padding: "90px 56px 60px",
+        gap: 24,
+        zIndex: 5,
+        maxWidth: 990,
+        margin: "0 auto"
+      }}>
+        {/* Full-width tag spanning both columns */}
+        <div style={{ gridColumn: "1 / -1", width: "100%", alignSelf: "start", marginTop: 12, paddingLeft: "16px" }}>
+          <SectionTag num="001" label="Canvas" addReveal={addReveal} scale={0.8} />
+        </div>
 
         {/* Left copy */}
-        <div style={{ position: "relative", zIndex: 6 }}>
-          <div className="rise" style={{ animationDelay: "0.05s", fontFamily: "'JetBrains Mono',monospace", fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase" as const, color: "var(--ink-soft)", display: "flex", alignItems: "center", gap: 14, marginBottom: 28 }}>
-            <span style={{ background: "var(--ink)", color: "var(--paper)", padding: "3px 8px", fontSize: 11 }}>001</span>
-            <span>An infinite canvas, made tangible</span>
-          </div>
-
-          <h1 className="rise" style={{ animationDelay: "0.15s", fontFamily: "'Fraunces',serif", fontWeight: 500, lineHeight: 0.9, letterSpacing: "-0.035em", margin: 0, color: "var(--ink)", fontSize: "clamp(52px,7.5vw,118px)" }}>
+        <div className="hero-left-copy" style={{ position: "relative", zIndex: 6, alignSelf: "end", marginBottom: 90, paddingLeft: "16px" }}>
+          <h1 className="rise" style={{ animationDelay: "0.15s", fontFamily: "'Fraunces',serif", fontWeight: 500, lineHeight: 0.94, letterSpacing: "-0.035em", margin: 0, color: "var(--ink)", fontSize: "clamp(13px,1.9vw,27px)" }}>
             Draw<span style={{ color: ACCENT }}>.</span>{" "}
             <em style={{ fontStyle: "italic", fontWeight: 400 }}>Think</em><span style={{ color: ACCENT }}>.</span><br />
             <span style={{ position: "relative", display: "inline-block" }}>
               Ship
               <svg style={{ position: "absolute", left: "-6%", bottom: "-8%", width: "112%", height: "38%", pointerEvents: "none" }} viewBox="0 0 200 30" preserveAspectRatio="none">
-                <path d="M3 22 C 40 6, 90 8, 140 14 S 195 22, 197 18" stroke={ACCENT} strokeWidth="6" fill="none" strokeLinecap="round" opacity=".5" />
+                <path d="M3 22 C 40 6, 90 8, 140 14 S 195 22, 197 18" stroke={ACCENT} strokeWidth="4" fill="none" strokeLinecap="round" opacity=".5" />
               </svg>
             </span>{" "}
             <span style={{ color: "var(--ink-soft)" }}>together.</span>
           </h1>
 
-          <p className="rise" style={{ animationDelay: "0.3s", maxWidth: 520, fontSize: 18, lineHeight: 1.55, color: "var(--ink-soft)", marginTop: 30, marginBottom: 0 }}>
-            Canvas is the hand-drawn whiteboard for serious teams. Sketch wireframes,
-            diagram systems, and run live workshops on a canvas that feels like{" "}
-            <em style={{ fontFamily: "'Caveat',cursive", fontStyle: "normal", fontSize: "1.2em", color: ACCENT }}>real paper</em>
-            {" "}— except it never runs out.
-          </p>
-
-          <div className="rise" style={{ animationDelay: "0.45s", marginTop: 38, display: "flex", alignItems: "center", gap: 18, flexWrap: "wrap" }}>
-            <HardButton onClick={() => router.push("/canvas")} primary>Open a blank canvas →</HardButton>
-            <HardButton onClick={() => scrollTo("how-it-works")} ghost>How it works</HardButton>
-          </div>
-
-          <div className="rise" style={{ animationDelay: "0.6s", marginTop: 28, fontFamily: "'Caveat',cursive", color: ACCENT, fontSize: 22, display: "flex", alignItems: "center", gap: 10, transform: "rotate(-2deg)", width: "fit-content" }}>
-            <svg width="44" height="32" viewBox="0 0 44 32" fill="none">
-              <path d="M2 14 C 12 4, 24 26, 38 14" stroke={ACCENT} strokeWidth="2" strokeLinecap="round" />
-              <path d="M34 9 L 38 14 L 33 18" stroke={ACCENT} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none" />
-            </svg>
-            drag the canvas — it&rsquo;s alive
+          <div className="rise" style={{ animationDelay: "0.3s", marginTop: 32, display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 10 }}>
+            <HeroButton onClick={() => router.push("/canvas")} primary>Open a new canvas</HeroButton>
+            <div style={{ marginLeft: 4 }}>
+              <HeroButton onClick={() => scrollTo("how-it-works")} ghost>How it works</HeroButton>
+            </div>
           </div>
         </div>
 
         {/* Right: 3D scene */}
-        <section ref={stageRef} className="hero-stage hero-3d-scene" style={{ cursor: "grab", userSelect: "none" }}>
+        <section ref={stageRef} className="hero-stage hero-3d-scene" style={{ cursor: "grab", userSelect: "none", transform: "scale(0.7)", transformOrigin: "center center", height: 440, alignSelf: "start" }}>
           <div ref={sceneRef} className="hero-scene">
 
             {/* L0 — main canvas card (depth -180) */}
@@ -216,7 +318,7 @@ export default function HeroSection({ scrollTo }: { scrollTo: (id: string) => vo
 
             {/* L3 — yellow sticky */}
             <div ref={layerRef(3)} className="hero-layer"
-              style={{ left: "50%", top: "50%", marginLeft: 120, marginTop: -220, transform: L(3).orig }}>
+              style={{ left: "50%", top: "50%", marginLeft: 60, marginTop: -220, transform: L(3).orig }}>
               <div className="sticky-note" style={{ width: 170, transform: "rotate(7deg)" }}>ship by<br />friday ✱</div>
             </div>
 
@@ -228,7 +330,7 @@ export default function HeroSection({ scrollTo }: { scrollTo: (id: string) => vo
 
             {/* L5 — green sticky */}
             <div ref={layerRef(5)} className="hero-layer"
-              style={{ left: "50%", top: "50%", marginLeft: 140, marginTop: 80, transform: L(5).orig }}>
+              style={{ left: "50%", top: "50%", marginLeft: 75, marginTop: 80, transform: L(5).orig }}>
               <div className="sticky-note green" style={{ width: 130, fontSize: 18, transform: "rotate(-4deg)" }}>✓ shipped</div>
             </div>
 
@@ -253,7 +355,7 @@ export default function HeroSection({ scrollTo }: { scrollTo: (id: string) => vo
 
             {/* L8 — cursor Jules */}
             <div ref={layerRef(8)} className="hero-layer"
-              style={{ left: "50%", top: "50%", marginLeft: 120, marginTop: 0, transform: L(8).orig }}>
+              style={{ left: "50%", top: "50%", marginLeft: 70, marginTop: 0, transform: L(8).orig }}>
               <div className="cursor-flag">
                 <svg width="22" height="24" viewBox="0 0 22 24" fill={ACCENT4} stroke={INK} strokeWidth="1.5"><path d="M2 2 L2 20 L7 16 L10 22 L13 20 L10 14 L18 14 Z" strokeLinejoin="round" /></svg>
                 <div className="flag-tag" style={{ background: ACCENT4 }}>Jules</div>
@@ -268,7 +370,7 @@ export default function HeroSection({ scrollTo }: { scrollTo: (id: string) => vo
 
             {/* L10 — amber circle */}
             <div ref={layerRef(10)} className="hero-layer"
-              style={{ left: "50%", top: "50%", marginLeft: 300, marginTop: 120, transform: L(10).orig }}>
+              style={{ left: "50%", top: "50%", marginLeft: 160, marginTop: 120, transform: L(10).orig }}>
               <div style={{ width: 40, height: 40, borderRadius: "50%", background: AMBER, border: `1.5px solid ${INK}`, boxShadow: `4px 4px 0 rgba(21,19,15,.6)` }} />
             </div>
 
@@ -288,10 +390,22 @@ export default function HeroSection({ scrollTo }: { scrollTo: (id: string) => vo
       </div>
 
       {/* Hero rail */}
-      <div style={{ position: "absolute", left: 0, right: 0, bottom: 24, zIndex: 6, display: "flex", justifyContent: "space-between", alignItems: "flex-end", padding: "0 36px", fontFamily: "'JetBrains Mono',monospace", fontSize: 11, letterSpacing: "0.08em", textTransform: "uppercase" as const, color: "var(--ink-soft)", pointerEvents: "none" }}>
-        <div><div>Lat. 37.77 / Lon. -122.42</div><div><b style={{ color: "var(--ink)", fontWeight: 500 }}>Built in the open.</b> Self-host or cloud.</div></div>
-        <div style={{ fontFamily: "'Fraunces',serif", fontStyle: "italic", fontWeight: 300, fontSize: 120, lineHeight: 0.85, color: "var(--ink)", letterSpacing: "-0.04em", opacity: 0.07, userSelect: "none" }}>canvas</div>
-        <div style={{ textAlign: "right" }}><div>No. 001 — May &rsquo;26</div><div><b style={{ color: "var(--ink)", fontWeight: 500 }}>14,302 boards opened today</b></div></div>
+      <div style={{ position: "absolute", left: 0, right: 0, bottom: 12, zIndex: 6, pointerEvents: "none" }}>
+        <div style={{ maxWidth: 990, margin: "0 auto", padding: "0 56px", display: "flex", justifyContent: "space-between", alignItems: "flex-end", fontFamily: "'JetBrains Mono',monospace", fontSize: 9.5, letterSpacing: "0.08em", textTransform: "uppercase" as const, color: "var(--ink-soft)" }}>
+          <div>
+            <div className="rise" style={{ animationDelay: "0.6s", marginBottom: 12, fontFamily: "'Caveat',cursive", color: ACCENT, fontSize: 20, display: "flex", alignItems: "center", gap: 8, transform: "rotate(-2deg)", width: "fit-content", textTransform: "none", pointerEvents: "auto" }}>
+              <svg width="44" height="32" viewBox="0 0 44 32" fill="none">
+                <path d="M2 14 C 12 4, 24 26, 38 14" stroke={ACCENT} strokeWidth="2" strokeLinecap="round" />
+                <path d="M34 9 L 38 14 L 33 18" stroke={ACCENT} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+              </svg>
+              drag the canvas &mdash; it&rsquo;s alive
+            </div>
+            <div>Lat. 37.77 / Lon. -122.42</div>
+            <div><b style={{ color: "var(--ink)", fontWeight: 500 }}>Built in the open.</b> Self-host or cloud.</div>
+          </div>
+          <div style={{ fontFamily: "'Fraunces',serif", fontStyle: "italic", fontWeight: 300, fontSize: 75, lineHeight: 0.8, color: "var(--ink)", letterSpacing: "-0.04em", opacity: 0.07, userSelect: "none" }}>canvas</div>
+          <div style={{ textAlign: "right" }}><div>No. 001 — May &rsquo;26</div><div><b style={{ color: "var(--ink)", fontWeight: 500 }}>14,302 boards opened today</b></div></div>
+        </div>
       </div>
     </section>
   );

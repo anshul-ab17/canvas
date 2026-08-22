@@ -1,78 +1,208 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
-import { ACCENT, INK, PAPER3, AMBER, BLUE, GREEN, ACCENT4, SectionTag } from "./Common";
+import React from "react";
+import { ACCENT, SectionTag } from "./Common";
 
 export default function HowItWorks({ addReveal }: { addReveal: (el: Element | null) => void }) {
-  const [visibleSteps, setVisibleSteps] = useState<number[]>([]);
-  const stepRefs = useRef<Array<HTMLDivElement | null>>([]);
-
-  useEffect(() => {
-    const io = new IntersectionObserver(
-      (entries) => entries.forEach(e => {
-        const i = parseInt((e.target as HTMLElement).dataset.stepIdx ?? "0");
-        setVisibleSteps(prev => {
-          if (e.isIntersecting) return prev.includes(i) ? prev : [...prev, i];
-          return prev.filter(x => x !== i);
-        });
-      }),
-      { threshold: 0.15 }
-    );
-    stepRefs.current.forEach(el => el && io.observe(el));
-    return () => io.disconnect();
-  }, []);
+  const steps = [
+    {
+      num: "01",
+      title: "Workflow",
+      desc: "Draw shapes your way or let AI generate them for you. Make quick edits, fine-tune details, and build out your ideas.",
+      visual: (
+        <svg width="100%" height="100%" viewBox="0 0 240 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="240" height="180" fill="#9896FF" />
+          <circle cx="120" cy="90" r="60" fill="#ffffff" fillOpacity="0.1" />
+          <g transform="translate(30, 25)">
+            <rect width="180" height="130" rx="8" fill="#1C1A15" stroke="#3A352C" strokeWidth="2" />
+            <rect x="20" y="20" width="65" height="36" rx="4" fill="#22201A" stroke="#ffffff" strokeWidth="1.5" strokeOpacity="0.3" />
+            <text x="52.5" y="42" fill="#ffffff" fontSize="9" fontWeight="bold" fontFamily="monospace" textAnchor="middle">Add Shape</text>
+            <rect x="95" y="20" width="65" height="36" rx="4" fill="#22201A" stroke="#ffffff" strokeWidth="1.5" strokeOpacity="0.3" />
+            <text x="127.5" y="42" fill="#ffffff" fontSize="9" fontWeight="bold" fontFamily="monospace" textAnchor="middle">Connect</text>
+            <rect x="20" y="74" width="140" height="36" rx="4" fill={ACCENT} />
+            <text x="90" y="96" fill="#ffffff" fontSize="10" fontWeight="bold" fontFamily="monospace" textAnchor="middle">Launch Canvas</text>
+          </g>
+        </svg>
+      )
+    },
+    {
+      num: "02",
+      title: "Live Editing",
+      desc: "Work together in real-time on the same board. Bring collaborators in and make changes with zero latency.",
+      visual: (
+        <svg width="100%" height="100%" viewBox="0 0 240 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="240" height="180" fill="#39BEB7" />
+          <circle cx="120" cy="90" r="60" fill="#ffffff" fillOpacity="0.1" />
+          <g transform="translate(30, 25)">
+            <rect width="180" height="130" rx="8" fill="#1C1A15" stroke="#3A352C" strokeWidth="2" />
+            <circle cx="60" cy="65" r="20" fill="none" stroke="#ffffff" strokeWidth="2" strokeOpacity="0.4" />
+            <g transform="translate(85, 45)">
+              <path d="M0 0 L15 5 L10 10 L15 15 L12 18 L7 13 L2 18 Z" fill={ACCENT} />
+              <rect x="12" y="18" width="46" height="16" rx="2" fill={ACCENT} />
+              <text x="35" y="29" fill="#ffffff" fontSize="8" fontWeight="bold" fontFamily="monospace" textAnchor="middle">Red John</text>
+            </g>
+            <rect x="30" y="25" width="120" height="10" rx="2" fill="#22201A" stroke="#ffffff" strokeWidth="1" strokeOpacity="0.2" />
+            <rect x="30" y="95" width="120" height="10" rx="2" fill="#22201A" stroke="#ffffff" strokeWidth="1" strokeOpacity="0.2" />
+          </g>
+        </svg>
+      )
+    },
+    {
+      num: "03",
+      title: "Export & Share",
+      desc: "No complicated file setups. Share the room URL to edit, or export to standard PNG/SVG with one click.",
+      visual: (
+        <svg width="100%" height="100%" viewBox="0 0 240 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="240" height="180" fill="#39D1F9" />
+          <circle cx="120" cy="90" r="60" fill="#ffffff" fillOpacity="0.1" />
+          <g transform="translate(35, 25)">
+            <rect width="170" height="130" rx="8" fill="#1C1A15" stroke="#3A352C" strokeWidth="2" />
+            <rect x="20" y="25" width="130" height="32" rx="4" fill="#22201A" stroke="#3A352C" strokeWidth="1.5" />
+            <text x="85" y="44" fill="#ffffff" fontSize="8" fontWeight="bold" fontFamily="monospace" textAnchor="middle">canvas.new/board-abc</text>
+            <rect x="20" y="75" width="60" height="32" rx="4" fill={ACCENT} />
+            <text x="50" y="95" fill="#ffffff" fontSize="9" fontWeight="bold" fontFamily="monospace" textAnchor="middle">PNG</text>
+            <rect x="90" y="75" width="60" height="32" rx="4" fill="#2E8A6A" />
+            <text x="120" y="95" fill="#ffffff" fontSize="9" fontWeight="bold" fontFamily="monospace" textAnchor="middle">SVG</text>
+          </g>
+        </svg>
+      )
+    }
+  ];
 
   return (
-    <section id="how-it-works" style={{ position: "relative", zIndex: 5, minHeight: "100vh", display: "flex", flexDirection: "column", justifyContent: "center", padding: "80px 56px", background: "var(--paper-2)" }}>
-      <div style={{ maxWidth: 1320, margin: "0 auto" }}>
-        <SectionTag num="003" label="How it works" addReveal={addReveal} />
-        <div className="section-header-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 48, alignItems: "end", marginBottom: 60 }}>
-          <h2 ref={addReveal} className="reveal" style={{ fontFamily: "'Fraunces',serif", fontWeight: 500, lineHeight: 0.9, letterSpacing: "-0.035em", margin: 0, color: "var(--ink)", fontSize: "clamp(40px,5.5vw,84px)" }}>
-            From blank page to <em style={{ fontStyle: "italic", fontWeight: 400 }}>shipped diagram</em> in four steps.
-          </h2>
-          <p ref={addReveal} className="reveal" style={{ maxWidth: 560, fontSize: 18, lineHeight: 1.5, color: "var(--ink-soft)", margin: "0 0 8px" }}>
-            Built around the rhythm of a real workshop:{" "}
-            {(["open", "sketch", "discuss", "archive"] as const).map((w, i) => (
-              <span key={w}><em style={{ fontFamily: "'Caveat',cursive", fontStyle: "normal", fontSize: "1.15em", color: ACCENT }}>{w}</em>{i < 3 ? ", " : "."}</span>
-            ))}
+    <section id="how-it-works" style={{ position: "relative", zIndex: 5, padding: "80px 56px", minHeight: "80vh", display: "flex", flexDirection: "column", justifyContent: "center", background: "var(--paper-2)" }}>
+      <style dangerouslySetInnerHTML={{ __html: `
+        .how-container {
+          max-width: 990px;
+          margin: 0 auto;
+        }
+        .how-header-grid {
+          display: grid;
+          grid-template-columns: 1fr;
+          gap: 24px;
+          margin-bottom: 64px;
+          align-items: flex-end;
+        }
+        @media (min-width: 1024px) {
+          .how-header-grid {
+            grid-template-columns: 1.2fr 1fr;
+          }
+        }
+        .how-title-label {
+          font-family: 'JetBrains Mono', monospace;
+          font-size: 11px;
+          letter-spacing: 0.18em;
+          text-transform: uppercase;
+          color: var(--ink-soft);
+          margin-bottom: 16px;
+          display: block;
+        }
+        .how-title {
+          font-family: 'Oswald', 'Impact', 'Arial Narrow', sans-serif;
+          font-size: clamp(20px, 2.75vw, 42px);
+          font-weight: 900;
+          line-height: 0.85;
+          text-transform: uppercase;
+          letter-spacing: -0.02em;
+          margin: 0;
+          color: var(--ink);
+        }
+        .how-desc {
+          font-size: 12.5px;
+          line-height: 1.5;
+          color: var(--ink-soft);
+          margin: 0;
+        }
+        .how-grid {
+          display: grid;
+          grid-template-columns: 1fr;
+          gap: 32px;
+        }
+        @media (min-width: 768px) {
+          .how-grid {
+            grid-template-columns: 1fr 1fr;
+          }
+        }
+        @media (min-width: 1024px) {
+          .how-grid {
+            grid-template-columns: 1fr 1fr 1fr;
+          }
+        }
+        .how-card {
+          border: 1.5px solid var(--ink);
+          background: var(--paper-3);
+          border-radius: 16px;
+          overflow: hidden;
+          box-shadow: 6px 6px 0 var(--ink);
+          display: flex;
+          flex-direction: column;
+          transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .how-card:hover {
+          transform: translateY(-4px);
+          box-shadow: 8px 8px 0 var(--ink);
+        }
+        .how-card-visual {
+          height: 180px;
+          overflow: hidden;
+          position: relative;
+          border-bottom: 1.5px solid var(--ink);
+        }
+        .how-card-content {
+          padding: 24px;
+          display: flex;
+          flex-direction: column;
+          gap: 12px;
+        }
+        .how-card-step {
+          font-family: 'JetBrains Mono', monospace;
+          font-size: 11px;
+          letter-spacing: 0.15em;
+          text-transform: uppercase;
+          color: var(--ink-soft);
+          opacity: 0.6;
+        }
+        .how-card-title {
+          font-family: 'Fraunces', serif;
+          font-size: 24px;
+          font-weight: 600;
+          margin: 0;
+          color: var(--ink);
+        }
+        .how-card-desc {
+          font-size: 14.5px;
+          line-height: 1.5;
+          color: var(--ink-soft);
+          margin: 0;
+        }
+      ` }} />
+
+      <div className="how-container">
+        <SectionTag num="004" label="How it works" addReveal={addReveal} scale={0.8} />
+
+        <div className="how-header-grid">
+          <div ref={addReveal} className="reveal">
+            <span className="how-title-label">Instant Workflow</span>
+            <h2 className="how-title">
+              From Idea to Live Diagram, <em style={{ fontStyle: "italic", fontWeight: 900 }}>Instantly.</em>
+            </h2>
+          </div>
+          <p ref={addReveal} className="reveal how-desc">
+            Build diagrams your way or let AI generate them for you. Make quick edits, fine-tune details, and{" "}
+            <em style={{ fontFamily: "'Caveat',cursive", fontStyle: "normal", fontSize: "1.2em", color: ACCENT }}>collaborate</em>{" "}
+            in seconds.
           </p>
         </div>
 
-        <div style={{
-          display: "flex",
-          flexDirection: "column",
-          gap: "20vh",
-          paddingBottom: "10vh",
-          maxWidth: 900,
-          margin: "0 auto"
-        }}>
-          {[
-            { n: "01", title: "Open a blank canvas.", body: "One click — no project, no folder, no setup. The URL is the document. Share it and you're collaborating.", visual: <svg width="120" height="80" viewBox="0 0 120 80"><rect x="10" y="14" width="100" height="56" rx="6" fill={PAPER3} stroke={INK} strokeWidth="2" /><line x1="20" y1="6" x2="20" y2="20" stroke={INK} strokeWidth="2.5" strokeLinecap="round" /><line x1="100" y1="6" x2="100" y2="20" stroke={INK} strokeWidth="2.5" strokeLinecap="round" /></svg> },
-            { n: "02", title: "Sketch with intent.", body: "Twelve tools, keyboard shortcuts for everything. Hand-drawn aesthetic, but the snapping is exact.", visual: <svg width="140" height="80" viewBox="0 0 140 80"><rect x="20" y="14" width="50" height="40" rx="4" fill={BLUE} stroke={INK} strokeWidth="2" /><circle cx="100" cy="34" r="20" fill={AMBER} stroke={INK} strokeWidth="2" /><path d="M70 34 C 80 30,85 38,80 34" stroke={ACCENT} strokeWidth="2" fill="none" strokeLinecap="round" /></svg> },
-            { n: "03", title: "Discuss, live.", body: "Cursors and shared state — all on the canvas. No 'let me share my screen' ever again.", visual: <svg width="140" height="80" viewBox="0 0 140 80"><circle cx="40" cy="40" r="14" fill={AMBER} stroke={INK} strokeWidth="2" /><circle cx="68" cy="40" r="14" fill={BLUE} stroke={INK} strokeWidth="2" /><circle cx="96" cy="40" r="14" fill={GREEN} stroke={INK} strokeWidth="2" /><text x="40" y="44" textAnchor="middle" fontFamily="Inter Tight" fontSize="11" fontWeight="700" fill={INK}>M</text><text x="68" y="44" textAnchor="middle" fontFamily="Inter Tight" fontSize="11" fontWeight="700" fill={INK}>J</text><text x="96" y="44" textAnchor="middle" fontFamily="Inter Tight" fontSize="11" fontWeight="700" fill={INK}>T</text></svg> },
-            { n: "04", title: "Ship & archive.", body: "Export to PNG or SVG. Self-host for complete control. The board lives at a URL forever.", visual: <svg width="120" height="80" viewBox="0 0 120 80"><rect x="20" y="14" width="80" height="50" rx="4" fill={PAPER3} stroke={INK} strokeWidth="2" /><path d="M30 30 L60 50 L90 22" stroke={ACCENT4} strokeWidth="3" fill="none" strokeLinecap="round" strokeLinejoin="round" /></svg> },
-          ].map((s, i) => (
-            <div key={s.n}
-              ref={el => { stepRefs.current[i] = el; }}
-              data-step-idx={String(i)}
-              style={{
-                position: "sticky", top: 140 + (i * 32),
-                border: "1.5px solid var(--ink)", background: "var(--paper-3)",
-                borderRadius: 16, padding: "32px 32px 32px",
-                boxShadow: "8px 8px 0 var(--ink)",
-                display: "flex", flexDirection: "row", gap: 32, alignItems: "center",
-                minHeight: 280,
-                opacity: visibleSteps.includes(i) ? 1 : 0,
-                transform: visibleSteps.includes(i) ? "translateY(0) scale(1)" : "translateY(100px) scale(0.95)",
-                transition: `all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1)`,
-                zIndex: i,
-              }}>
-              <div style={{ position: "absolute", top: -22, right: -12, fontFamily: "'Fraunces',serif", fontWeight: 600, fontStyle: "italic", fontSize: 84, lineHeight: 1, color: ACCENT, textShadow: `2px 2px 0 ${INK}` }}>{s.n}</div>
-              <div style={{ flex: 1 }}>
-                <h3 style={{ fontFamily: "'Fraunces',serif", fontWeight: 600, fontSize: 32, lineHeight: 1.05, margin: "0 0 16px", letterSpacing: "-0.02em", color: "var(--ink)" }}>{s.title}</h3>
-                <p style={{ margin: 0, fontSize: 16, lineHeight: 1.6, color: "var(--ink-soft)" }}>{s.body}</p>
-              </div>
-              <div style={{ width: 240, height: 160, border: "1.2px solid var(--ink)", borderRadius: 12, background: "var(--paper)", backgroundImage: "linear-gradient(rgba(21,19,15,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(21,19,15,.06) 1px,transparent 1px)", backgroundSize: "18px 18px", display: "grid", placeItems: "center", flexShrink: 0 }}>
+        <div className="how-grid">
+          {steps.map((s, i) => (
+            <div key={s.num} ref={addReveal} className="reveal how-card">
+              <div className="how-card-visual">
                 {s.visual}
+              </div>
+              <div className="how-card-content">
+                <span className="how-card-step">Step {s.num}</span>
+                <h3 className="how-card-title">{s.title}</h3>
+                <p className="how-card-desc">{s.desc}</p>
               </div>
             </div>
           ))}
