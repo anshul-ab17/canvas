@@ -226,7 +226,7 @@ export default function FAQ({ addReveal }: { addReveal: (el: Element | null) => 
         /* Left Questions Column */
         .faq-questions-col {
           background: #0A0A0C; /* matches Leclerc dark aesthetic */
-          padding: 32px;
+          padding: 0;
           display: flex;
           flex-direction: column;
           border-bottom: 2px solid var(--ink);
@@ -241,7 +241,8 @@ export default function FAQ({ addReveal }: { addReveal: (el: Element | null) => 
           font-family: 'Fraunces', serif;
           font-size: 26px;
           color: #ffffff;
-          margin: 0 0 24px 0;
+          padding: 32px 32px 16px 32px;
+          margin: 0;
           font-weight: 500;
         }
         .faq-q-list {
@@ -258,21 +259,20 @@ export default function FAQ({ addReveal }: { addReveal: (el: Element | null) => 
           line-height: 1.45;
           color: rgba(255, 255, 255, 0.65);
           cursor: pointer;
-          transition: all 0.25s cubic-bezier(0.25, 1, 0.5, 1);
-          padding: 16px 0;
-          border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+          transition: all 0.2s ease;
+          padding: 16px 32px;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.08);
         }
         .faq-q-btn:last-child {
           border-bottom: none;
         }
         .faq-q-btn:hover {
           color: #ffffff;
-          padding-left: 4px;
+          background: rgba(255, 255, 255, 0.04);
         }
         .faq-q-btn.active {
           color: ${ACCENT};
-          font-weight: 700;
-          padding-left: 8px;
+          background: rgba(255, 255, 255, 0.06);
         }
 
         /* Right Answers Column */
