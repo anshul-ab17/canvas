@@ -166,7 +166,7 @@ export default function Navbar({ scrolled, isLoggedIn, darkMode, toggleDark, scr
             letterSpacing: "-0.01em"
           }}
         >
-          <span style={{ width: 14, height: 14, borderRadius: "50%", background: ACCENT, boxShadow: "3px 3px 0 var(--ink)", display: "inline-block", transform: "translateY(-2px)" }} />
+          <img src="/canvas.svg" alt="Canvas Logo" style={{ width: 28, height: 28, objectFit: "contain", transform: "translateY(-1px)" }} />
           Canvas
         </button>
 
