@@ -12,14 +12,11 @@ export default function GuestBrand() {
         display: "flex",
         alignItems: "center",
         gap: 8,
-        boxShadow: "3px 3px 0 var(--ink, #15130F)",
+        boxShadow: "3px 3px 0 #F97316",
         cursor: "pointer",
         transition: "transform 0.2s"
       }}>
-        <span style={{ width: 9, height: 9, borderRadius: "50%", background: ACCENT, boxShadow: "1.5px 1.5px 0 var(--ink, #15130F)", display: "inline-block", flexShrink: 0 }} />
-        <span style={{ fontSize: 16, fontWeight: 700, fontFamily: "'Fraunces', serif", color: "var(--ink, #15130F)", letterSpacing: "-0.01em" }}>
-          Canvex
-        </span>
+        <img src="/canvas.svg" alt="Canvas" style={{ height: 20, objectFit: "contain" }} />
       </div>
     </Link>
   );
