@@ -214,7 +214,7 @@ export default function HeroSection({ scrollTo, addReveal }: { scrollTo: (id: st
         margin: "0 auto"
       }}>
         {/* Full-width tag spanning both columns */}
-        <div style={{ gridColumn: "1 / -1", width: "100%", alignSelf: "start", marginTop: 12, paddingLeft: "16px" }}>
+        <div style={{ gridColumn: "1 / -1", width: "100%", alignSelf: "start", marginTop: 12 }}>
           <SectionTag num="001" label="Canvas" addReveal={addReveal} scale={0.8} />
         </div>
 
