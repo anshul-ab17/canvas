@@ -8,13 +8,13 @@ export default function Footer() {
   const [btnHov, setBtnHov] = useState(false);
 
   return (
-    <footer style={{ background: "var(--footer-bg)", color: "var(--footer-text)", padding: "80px 48px 40px", fontFamily: "'Inter Tight', sans-serif", position: "relative", zIndex: 10 }}>
+    <footer style={{ background: "var(--footer-bg)", color: "var(--footer-text)", padding: "80px 56px 40px", fontFamily: "'Inter Tight', sans-serif", position: "relative", zIndex: 10 }}>
       <style dangerouslySetInnerHTML={{ __html: `
         .footer-grid {
           display: grid;
           grid-template-columns: 1fr;
           gap: 40px;
-          max-width: 1320px;
+          max-width: 990px;
           margin: 0 auto;
         }
         @media (min-width: 1024px) {
@@ -138,16 +138,9 @@ export default function Footer() {
         <div style={{ display: "flex", flexDirection: "column", gap: 32 }}>
           <div 
             onClick={() => router.push("/")}
-            style={{ 
-              fontFamily: "'Fraunces', serif", 
-              fontSize: "36px", 
-              fontWeight: 700, 
-              color: "var(--footer-text)", 
-              cursor: "pointer",
-              userSelect: "none"
-            }}
+            style={{ cursor: "pointer", userSelect: "none" }}
           >
-            canvas<span style={{ color: ACCENT }}>.</span>
+            <img src="/canvas.svg" alt="Canvas" style={{ height: 40, objectFit: "contain" }} />
           </div>
           
           <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
@@ -167,76 +160,65 @@ export default function Footer() {
               {/* Top-Left Bracket */}
               <span
                 style={{
-                  position: "absolute",
-                  top: "0px",
-                  left: "0px",
-                  width: "12px",
-                  height: "12px",
-                  background: `radial-gradient(circle at 100% 100%, transparent 8px, var(--ink) 8.5px)`,
+                  position: "absolute", top: -4, left: -4, width: 16, height: 16,
                   pointerEvents: "none",
                   transition: "transform 0.2s ease",
                   transform: btnHov ? "scale(0.85)" : "scale(1)",
                 }}
-              />
+              >
+                <svg width="16" height="16" viewBox="0 0 16 16"><rect width="16" height="16" fill="#0f0f1f" rx="2"/><circle cx="16" cy="16" r="9" fill="#E84A3F"/><circle cx="16" cy="16" r="5" fill="#F97316"/></svg>
+              </span>
               {/* Top-Right Bracket */}
               <span
                 style={{
-                  position: "absolute",
-                  top: "0px",
-                  right: "0px",
-                  width: "12px",
-                  height: "12px",
-                  background: `radial-gradient(circle at 0% 100%, transparent 8px, var(--ink) 8.5px)`,
+                  position: "absolute", top: -4, right: -4, width: 16, height: 16,
                   pointerEvents: "none",
                   transition: "transform 0.2s ease",
                   transform: btnHov ? "scale(0.85)" : "scale(1)",
                 }}
-              />
+              >
+                <svg width="16" height="16" viewBox="0 0 16 16"><rect width="16" height="16" fill="#0f0f1f" rx="2"/><circle cx="0" cy="16" r="9" fill="#E84A3F"/><circle cx="0" cy="16" r="5" fill="#F97316"/></svg>
+              </span>
               {/* Bottom-Left Bracket */}
               <span
                 style={{
-                  position: "absolute",
-                  bottom: "0px",
-                  left: "0px",
-                  width: "12px",
-                  height: "12px",
-                  background: `radial-gradient(circle at 100% 0%, transparent 8px, var(--ink) 8.5px)`,
+                  position: "absolute", bottom: -4, left: -4, width: 16, height: 16,
                   pointerEvents: "none",
                   transition: "transform 0.2s ease",
                   transform: btnHov ? "scale(0.85)" : "scale(1)",
                 }}
-              />
+              >
+                <svg width="16" height="16" viewBox="0 0 16 16"><rect width="16" height="16" fill="#0f0f1f" rx="2"/><circle cx="16" cy="0" r="9" fill="#E84A3F"/><circle cx="16" cy="0" r="5" fill="#F97316"/></svg>
+              </span>
               {/* Bottom-Right Bracket */}
               <span
                 style={{
-                  position: "absolute",
-                  bottom: "0px",
-                  right: "0px",
-                  width: "12px",
-                  height: "12px",
-                  background: `radial-gradient(circle at 0% 0%, transparent 8px, var(--ink) 8.5px)`,
+                  position: "absolute", bottom: -4, right: -4, width: 16, height: 16,
                   pointerEvents: "none",
                   transition: "transform 0.2s ease",
                   transform: btnHov ? "scale(0.85)" : "scale(1)",
                 }}
-              />
+              >
+                <svg width="16" height="16" viewBox="0 0 16 16"><rect width="16" height="16" fill="#0f0f1f" rx="2"/><circle cx="0" cy="0" r="9" fill="#E84A3F"/><circle cx="0" cy="0" r="5" fill="#F97316"/></svg>
+              </span>
 
               <button
                 onClick={() => router.push("/canvas")}
                 style={{
-                  background: ACCENT,
+                  background: "#F97316",
                   color: "#ffffff",
                   border: "none",
-                  borderRadius: "8px",
+                  borderRadius: "6px",
                   width: "220px",
                   height: "46px",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
                   fontFamily: "'Inter Tight', sans-serif",
-                  fontWeight: 700,
-                  fontSize: 12.5,
-                  letterSpacing: "0.02em",
+                  fontWeight: 800,
+                  fontSize: 13,
+                  letterSpacing: "0.06em",
+                  textTransform: "uppercase",
                   cursor: "pointer",
                   transition: "opacity 0.2s, transform 0.1s",
                   transform: btnHov ? "scale(0.98)" : "scale(1)",

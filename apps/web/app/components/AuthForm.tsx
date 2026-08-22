@@ -51,7 +51,7 @@ export default function AuthForm() {
       padding: 40, borderRadius: 18, boxShadow: "var(--shadow-lg)", width: 440,
       border: "1.5px solid var(--border)"
     }}>
-      <h1 style={{ margin: "0 0 8px", fontSize: 32, fontWeight: 500, color: "var(--text)", letterSpacing: "-0.03em", fontFamily: "'Fraunces', serif" }}>Canvas</h1>
+      <img src="/canvas.svg" alt="Canvas" style={{ height: 44, objectFit: "contain", marginBottom: 8 }} />
       <p style={{ margin: "0 0 32px", color: "var(--text-muted)", fontSize: 14, fontFamily: "'Inter Tight', sans-serif" }}>Sign in to collaborate in real-time</p>
 
       <div style={{ display: "flex", gap: 8, marginBottom: 28, background: "var(--bg)", padding: 6, borderRadius: 12, border: "1.5px solid var(--border)" }}>
@@ -90,14 +90,33 @@ export default function AuthForm() {
             style={{ width: "100%", padding: "14px 16px", borderRadius: 12, border: "1.5px solid var(--border)", background: "var(--bg)", color: "var(--text)", outline: "none", fontFamily: "'Inter Tight', sans-serif" }} />
         </div>
         {error && <p style={{ color: "#ff5f56", fontSize: 13, fontWeight: 600, margin: 0 }}>{error}</p>}
-        <button type="submit" disabled={loading} style={{
-          marginTop: 12, padding: "16px", borderRadius: 12, fontSize: 14, fontWeight: 700,
-          background: "var(--primary)", color: "#ffffff", border: "1.5px solid var(--ink)", cursor: loading ? "not-allowed" : "pointer", 
-          opacity: loading ? 0.7 : 1, transition: "transform 0.2s, box-shadow 0.2s",
-          boxShadow: "var(--shadow-sm)", fontFamily: "'JetBrains Mono', monospace", textTransform: "uppercase", letterSpacing: "0.05em"
-        }}>
-          {loading ? "Loading..." : mode === "signin" ? "Sign In" : "Create Account"}
-        </button>
+        <div style={{ position: "relative", marginTop: 12 }}>
+          {/* Top-Left */}
+          <span style={{ position: "absolute", top: -4, left: -4, width: 16, height: 16, pointerEvents: "none", zIndex: 1 }}>
+            <svg width="16" height="16" viewBox="0 0 16 16"><rect width="16" height="16" fill="#0f0f1f" rx="2"/><circle cx="16" cy="16" r="9" fill="#E84A3F"/><circle cx="16" cy="16" r="5" fill="#F97316"/></svg>
+          </span>
+          {/* Top-Right */}
+          <span style={{ position: "absolute", top: -4, right: -4, width: 16, height: 16, pointerEvents: "none", zIndex: 1 }}>
+            <svg width="16" height="16" viewBox="0 0 16 16"><rect width="16" height="16" fill="#0f0f1f" rx="2"/><circle cx="0" cy="16" r="9" fill="#E84A3F"/><circle cx="0" cy="16" r="5" fill="#F97316"/></svg>
+          </span>
+          {/* Bottom-Left */}
+          <span style={{ position: "absolute", bottom: -4, left: -4, width: 16, height: 16, pointerEvents: "none", zIndex: 1 }}>
+            <svg width="16" height="16" viewBox="0 0 16 16"><rect width="16" height="16" fill="#0f0f1f" rx="2"/><circle cx="16" cy="0" r="9" fill="#E84A3F"/><circle cx="16" cy="0" r="5" fill="#F97316"/></svg>
+          </span>
+          {/* Bottom-Right */}
+          <span style={{ position: "absolute", bottom: -4, right: -4, width: 16, height: 16, pointerEvents: "none", zIndex: 1 }}>
+            <svg width="16" height="16" viewBox="0 0 16 16"><rect width="16" height="16" fill="#0f0f1f" rx="2"/><circle cx="0" cy="0" r="9" fill="#E84A3F"/><circle cx="0" cy="0" r="5" fill="#F97316"/></svg>
+          </span>
+          <button type="submit" disabled={loading} style={{
+            width: "100%", padding: "14px", borderRadius: 6, fontSize: 13, fontWeight: 800,
+            background: "#F97316", color: "#ffffff", border: "none",
+            cursor: loading ? "not-allowed" : "pointer",
+            opacity: loading ? 0.7 : 1, transition: "transform 0.2s",
+            fontFamily: "'Inter Tight', sans-serif", textTransform: "uppercase", letterSpacing: "0.06em"
+          }}>
+            {loading ? "Loading..." : mode === "signin" ? "Sign In" : "Create Account"}
+          </button>
+        </div>
       </form>
 
       <div style={{ marginTop: 32, textAlign: "center" }}>
