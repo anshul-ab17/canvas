@@ -158,7 +158,7 @@ export default function FAQ({ addReveal }: { addReveal: (el: Element | null) => 
   const [activeIdx, setActiveIdx] = useState<number>(0);
 
   return (
-    <section style={{ position: "relative", zIndex: 5, padding: "80px 56px", background: "var(--paper, #ffffff)" }}>
+    <section id="faq" style={{ position: "relative", zIndex: 5, padding: "80px 56px", background: "var(--paper, #ffffff)" }}>
       <style dangerouslySetInnerHTML={{ __html: `
         .faq-container {
           max-width: 990px;

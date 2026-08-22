@@ -6,7 +6,7 @@ export default function PreviewSection({ addReveal }: { addReveal: (el: Element 
   const router = useRouter();
 
   return (
-    <section style={{ position: "relative", zIndex: 5, minHeight: "80vh", display: "flex", flexDirection: "column", justifyContent: "center", padding: "80px 56px", background: "var(--paper)" }}>
+    <section id="peek" style={{ position: "relative", zIndex: 5, minHeight: "80vh", display: "flex", flexDirection: "column", justifyContent: "center", padding: "80px 56px", background: "var(--paper)" }}>
       <div style={{ maxWidth: 990, margin: "0 auto" }}>
         <SectionTag num="003" label="A peek inside /canvas" addReveal={addReveal} scale={0.8} />
 

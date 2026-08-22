@@ -172,9 +172,9 @@ export default function Navbar({ scrolled, isLoggedIn, darkMode, toggleDark, scr
 
         {/* Navigation Links */}
         <nav className="nav-links" style={{ display: "flex", gap: 8, alignItems: "center" }}>
-          <NavLink label="Canvas" onClick={() => router.push("/canvas")} />
+          <NavLink label="Peek" onClick={() => scrollTo("peek")} />
           <NavLink label="How it works" onClick={() => scrollTo("how-it-works")} />
-          <NavLink label="Dashboard" onClick={() => router.push("/dashboard")} />
+          <NavLink label="FAQ" onClick={() => scrollTo("faq")} />
         </nav>
 
         {/* Actions & Toggles */}
