@@ -6,15 +6,15 @@ export default function PreviewSection({ addReveal }: { addReveal: (el: Element 
   const router = useRouter();
 
   return (
-    <section style={{ position: "relative", zIndex: 5, minHeight: "100vh", display: "flex", flexDirection: "column", justifyContent: "center", padding: "80px 56px" }}>
-      <div style={{ maxWidth: 1320, margin: "0 auto" }}>
-        <SectionTag num="002" label="A peek inside /canvas" addReveal={addReveal} />
+    <section style={{ position: "relative", zIndex: 5, minHeight: "80vh", display: "flex", flexDirection: "column", justifyContent: "center", padding: "80px 56px", background: "var(--paper)" }}>
+      <div style={{ maxWidth: 990, margin: "0 auto" }}>
+        <SectionTag num="003" label="A peek inside /canvas" addReveal={addReveal} scale={0.8} />
 
         <div className="section-header-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 48, alignItems: "end" }}>
-          <h2 ref={addReveal} className="reveal" style={{ fontFamily: "'Fraunces',serif", fontWeight: 500, lineHeight: 0.9, letterSpacing: "-0.035em", margin: 0, color: "var(--ink)", fontSize: "clamp(40px,5.5vw,84px)" }}>
-            The whiteboard, <em style={{ fontStyle: "italic", fontWeight: 400 }}>unboxed.</em>
+          <h2 ref={addReveal} className="reveal" style={{ fontFamily: "'Oswald', 'Impact', 'Arial Narrow', sans-serif", fontWeight: 900, lineHeight: 0.85, textTransform: "uppercase", letterSpacing: "-0.02em", margin: 0, color: "var(--ink)", fontSize: "clamp(20px,2.75vw,42px)" }}>
+            The whiteboard, <em style={{ fontStyle: "italic", fontWeight: 900 }}>unboxed.</em>
           </h2>
-          <p ref={addReveal} className="reveal" style={{ maxWidth: 560, fontSize: 18, lineHeight: 1.5, color: "var(--ink-soft)", margin: "0 0 8px" }}>
+          <p ref={addReveal} className="reveal" style={{ maxWidth: 560, fontSize: 12.5, lineHeight: 1.5, color: "var(--ink-soft)", margin: "0 0 8px" }}>
             Twelve tools. Six fill styles. One{" "}
             <em style={{ fontFamily: "'Caveat',cursive", fontStyle: "normal", fontSize: "1.2em", color: ACCENT }}>delightful</em>{" "}
             roughness slider. Every shape is hand-drawn and the canvas stretches to forever.
@@ -22,7 +22,7 @@ export default function PreviewSection({ addReveal }: { addReveal: (el: Element 
         </div>
 
         {/* Canvas preview mockup */}
-        <div ref={addReveal} className="reveal canvas-preview-wrap">
+        <div ref={addReveal} className="reveal canvas-preview-wrap" style={{ maxWidth: 742, margin: "48px auto 0" }}>
           <div className="cp-brand"><span className="dot" />Canvas</div>
 
           <div className="cp-toolbar">
@@ -97,7 +97,7 @@ export default function PreviewSection({ addReveal }: { addReveal: (el: Element 
         </div>
 
         <div ref={addReveal} className="reveal" style={{ marginTop: 36, display: "flex", alignItems: "center", gap: 24, flexWrap: "wrap" }}>
-          <HardButton onClick={() => router.push("/canvas")} primary>Open the canvas →</HardButton>
+          <HardButton onClick={() => router.push("/canvas")} primary>Open the canvas</HardButton>
           <span style={{ fontFamily: "'Caveat',cursive", color: ACCENT, fontSize: 22, transform: "rotate(-2deg)", display: "inline-block" }}>
             ↖ no signup, no template, just paper
           </span>

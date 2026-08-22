@@ -143,7 +143,7 @@ export default function AiModal({
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 6 }}>
             <label style={{ fontSize: 12, fontWeight: 600, color: "var(--ink-soft)" }}>OpenRouter API Key</label>
             <a href="https://openrouter.ai/keys" target="_blank" rel="noreferrer" style={{ fontSize: 11, color: ACCENT, textDecoration: "none" }}>
-              Get a free key →
+              Get a free key
             </a>
           </div>
           <div style={{ display: "flex", gap: 6 }}>

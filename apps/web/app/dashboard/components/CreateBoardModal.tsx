@@ -46,7 +46,7 @@ export default function CreateBoardModal({ newRoomName, creating, onChange, onSu
               border: "1.5px solid var(--ink)", cursor: creating ? "not-allowed" : "pointer",
               boxShadow: "var(--shadow-sm)", fontFamily: "'JetBrains Mono', monospace", textTransform: "uppercase", letterSpacing: "0.05em"
             }}>
-              {creating ? "Creating…" : "Create Board →"}
+              {creating ? "Creating…" : "Create Board"}
             </button>
             <button type="button" onClick={onClose} style={{
               padding: "14px 20px", borderRadius: 12, fontSize: 13, fontWeight: 700,

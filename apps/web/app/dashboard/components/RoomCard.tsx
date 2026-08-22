@@ -67,7 +67,7 @@ export default function RoomCard({ room, onClick }: Props) {
           <span style={{
             fontSize: 13, color: ACCENT, fontWeight: 700,
             fontFamily: "'Inter Tight', sans-serif",
-          }}>Open board →</span>
+          }}>Open board</span>
         </div>
       )}
     </div>

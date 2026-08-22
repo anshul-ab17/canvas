@@ -96,7 +96,7 @@ export default function AuthForm() {
           opacity: loading ? 0.7 : 1, transition: "transform 0.2s, box-shadow 0.2s",
           boxShadow: "var(--shadow-sm)", fontFamily: "'JetBrains Mono', monospace", textTransform: "uppercase", letterSpacing: "0.05em"
         }}>
-          {loading ? "Loading..." : mode === "signin" ? "Sign In →" : "Create Account →"}
+          {loading ? "Loading..." : mode === "signin" ? "Sign In" : "Create Account"}
         </button>
       </form>
 
