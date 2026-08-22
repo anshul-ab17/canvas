@@ -7,7 +7,7 @@ module.exports = {
       exec_mode: "fork",
       env_production: {
         NODE_ENV: "production",
-        PORT: 3002,
+        PORT: 3001,
       },
       error_file: "/var/log/canvas/error.log",
       out_file: "/var/log/canvas/out.log",
