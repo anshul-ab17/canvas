@@ -22,10 +22,51 @@ export default function PreviewSection({ addReveal }: { addReveal: (el: Element 
         </div>
 
         {/* Canvas preview mockup */}
-        <div ref={addReveal} className="reveal canvas-preview-wrap" style={{ maxWidth: 742, margin: "48px auto 0" }}>
-          <div className="cp-brand"><span className="dot" />Canvas</div>
+        <div ref={addReveal} className="reveal canvas-preview-wrap" style={{ maxWidth: 742, margin: "48px auto 0", position: "relative" }}>
+          {/* Mac Window Title Bar */}
+          <div
+            style={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              right: 0,
+              height: 38,
+              background: "var(--paper-2, #EDE6D8)",
+              borderBottom: "1.5px solid var(--ink)",
+              display: "flex",
+              alignItems: "center",
+              padding: "0 16px",
+              zIndex: 10,
+              userSelect: "none",
+            }}
+          >
+            {/* Window control dots */}
+            <div style={{ display: "flex", gap: 7 }}>
+              <span style={{ width: 11, height: 11, borderRadius: "50%", background: "#FF5F56", border: "0.5px solid #E0443E", display: "inline-block" }} />
+              <span style={{ width: 11, height: 11, borderRadius: "50%", background: "#FFBD2E", border: "0.5px solid #DEA123", display: "inline-block" }} />
+              <span style={{ width: 11, height: 11, borderRadius: "50%", background: "#27C93F", border: "0.5px solid #1AAB29", display: "inline-block" }} />
+            </div>
+            
+            {/* Window Title (centered) */}
+            <span
+              style={{
+                position: "absolute",
+                left: "50%",
+                transform: "translateX(-50%)",
+                fontFamily: "'JetBrains Mono', monospace",
+                fontSize: 10.5,
+                fontWeight: 600,
+                color: "var(--ink-soft)",
+                letterSpacing: "0.05em",
+              }}
+            >
+              canvas.new/board-abc
+            </span>
+          </div>
 
-          <div className="cp-toolbar">
+          <div className="cp-brand" style={{ top: 56 }}><span className="dot" />Canvas</div>
+
+          <div className="cp-toolbar" style={{ top: 56 }}>
             {[
               <svg key="sel" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M5 3 L5 19 L9 15 L12 21 L15 20 L12 14 L19 14 Z" /></svg>,
               <svg key="rect" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="4" y="4" width="16" height="16" rx="2" /></svg>,
@@ -40,12 +81,12 @@ export default function PreviewSection({ addReveal }: { addReveal: (el: Element 
             ))}
           </div>
 
-          <div className="cp-actions">
+          <div className="cp-actions" style={{ top: 56 }}>
             <div className="pill">↗ Sign in to collaborate</div>
             <div className="pill accent">Sign In</div>
           </div>
 
-          <div className="cp-props">
+          <div className="cp-props" style={{ top: 112 }}>
             <h5>Stroke</h5>
             <div className="row">
               {[INK, ACCENT, ACCENT3, ACCENT4, AMBER].map((c, i) => (
@@ -68,7 +109,7 @@ export default function PreviewSection({ addReveal }: { addReveal: (el: Element 
             </div>
           </div>
 
-          <svg className="cp-art" viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid meet">
+          <svg className="cp-art" viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid meet" style={{ top: 38, height: "calc(100% - 38px)" }}>
             <defs>
               <pattern id="hatch2" patternUnits="userSpaceOnUse" width="8" height="8" patternTransform="rotate(45)">
                 <line x1="0" y1="0" x2="0" y2="8" stroke={ACCENT} strokeWidth="1.4" opacity=".5" />
