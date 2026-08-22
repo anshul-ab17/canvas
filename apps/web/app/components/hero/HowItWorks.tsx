@@ -1,8 +1,19 @@
 "use client";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { ACCENT, SectionTag } from "./Common";
 
 export default function HowItWorks({ addReveal }: { addReveal: (el: Element | null) => void }) {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
+
+  useEffect(() => {
+    if (isHovered) return;
+    const interval = setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % 3);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, [isHovered]);
+
   const steps = [
     {
       num: "01",
@@ -194,18 +205,40 @@ export default function HowItWorks({ addReveal }: { addReveal: (el: Element | nu
         </div>
 
         <div className="how-grid">
-          {steps.map((s, i) => (
-            <div key={s.num} ref={addReveal} className="reveal how-card">
-              <div className="how-card-visual">
-                {s.visual}
+          {steps.map((s, i) => {
+            const isActive = i === activeIndex;
+            return (
+              <div
+                key={s.num}
+                ref={addReveal}
+                className="reveal how-card"
+                onMouseEnter={() => {
+                  setActiveIndex(i);
+                  setIsHovered(true);
+                }}
+                onMouseLeave={() => {
+                  setIsHovered(false);
+                }}
+                style={{
+                  opacity: isActive ? 1 : 0.35,
+                  transform: isActive ? "translateY(-6px) scale(1.02)" : "translateY(0) scale(0.97)",
+                  filter: isActive ? "none" : "grayscale(30%) blur(0.3px)",
+                  boxShadow: isActive ? "10px 10px 0 var(--ink)" : "4px 4px 0 var(--ink)",
+                  borderColor: isActive ? ACCENT : "var(--ink)",
+                  transition: "all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1)",
+                }}
+              >
+                <div className="how-card-visual">
+                  {s.visual}
+                </div>
+                <div className="how-card-content">
+                  <span className="how-card-step" style={{ color: isActive ? ACCENT : "var(--ink-soft)" }}>Step {s.num}</span>
+                  <h3 className="how-card-title">{s.title}</h3>
+                  <p className="how-card-desc">{s.desc}</p>
+                </div>
               </div>
-              <div className="how-card-content">
-                <span className="how-card-step">Step {s.num}</span>
-                <h3 className="how-card-title">{s.title}</h3>
-                <p className="how-card-desc">{s.desc}</p>
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>
