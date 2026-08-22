@@ -19,7 +19,7 @@ export default function DashboardHeader({ loading, roomCount, onNewBoard }: Prop
       <button onClick={onNewBoard} style={{
         background: ACCENT, color: "#fff", border: `1.5px solid ${ACCENT}`, borderRadius: 10,
         padding: "10px 22px", fontSize: 13, fontWeight: 700, cursor: "pointer",
-        boxShadow: "3px 3px 0 var(--ink, #15130F)", fontFamily: "'Inter Tight', sans-serif"
+        boxShadow: "3px 3px 0 #F97316", fontFamily: "'Inter Tight', sans-serif"
       }}>
         + New Board
       </button>

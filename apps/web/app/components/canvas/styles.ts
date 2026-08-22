@@ -4,16 +4,17 @@ export const INK = "var(--ink, #15130F)";
 export const PAPER = "var(--paper-3, #FBF8F1)";
 export const RULE = "var(--rule, #E8E0D0)";
 export const MUTED = "var(--muted, #7A7264)";
+export const ORANGE = "#F97316";
 
 export const panel: CSSProperties = {
   background: PAPER,
   border: `1.5px solid ${INK}`,
   borderRadius: 14,
-  boxShadow: `4px 4px 0 ${INK}`,
+  boxShadow: `4px 4px 0 ${ORANGE}`,
 };
 
-export const cardShadow = `4px 4px 0 ${INK}`;
-export const cardShadowHover = `8px 8px 0 ${INK}`;
+export const cardShadow = `4px 4px 0 ${ORANGE}`;
+export const cardShadowHover = `8px 8px 0 ${ORANGE}`;
 
 export const iconBtn: CSSProperties = {
   background: PAPER,
@@ -30,7 +31,7 @@ export const accentBtn = (accent: string): CSSProperties => ({
   cursor: "pointer",
   fontWeight: 600,
   fontFamily: "'Inter Tight', sans-serif",
-  boxShadow: `3px 3px 0 ${INK}`,
+  boxShadow: `3px 3px 0 ${ORANGE}`,
 });
 
 export const separator: CSSProperties = {
@@ -54,7 +55,7 @@ export const pill: CSSProperties = {
   border: `1.5px solid ${INK}`,
   borderRadius: 999,
   padding: "4px 12px",
-  boxShadow: `3px 3px 0 ${INK}`,
+  boxShadow: `3px 3px 0 ${ORANGE}`,
   display: "flex",
   alignItems: "center",
   gap: 8,

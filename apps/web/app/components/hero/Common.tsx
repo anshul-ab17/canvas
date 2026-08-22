@@ -39,7 +39,7 @@ export function HardButton({ onClick, children, primary, ghost }: { onClick: () 
   );
   return (
     <button onClick={onClick} onMouseEnter={() => setHov(true)} onMouseLeave={() => setHov(false)}
-      style={{ ...base, background: primary ? ACCENT : INK, color: "#fff", borderColor: primary ? ACCENT : INK, boxShadow: hov ? `8px 8px 0 ${INK}` : `6px 6px 0 ${INK}` }}>
+      style={{ ...base, background: primary ? ACCENT : INK, color: "#fff", borderColor: primary ? ACCENT : INK, boxShadow: hov ? `8px 8px 0 #F97316` : `6px 6px 0 #F97316` }}>
       {children}
     </button>
   );

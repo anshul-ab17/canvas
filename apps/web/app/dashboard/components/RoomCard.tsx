@@ -30,7 +30,7 @@ export default function RoomCard({ room, onClick }: Props) {
         background: "var(--paper-3, #FBF8F1)",
         border: "1.5px solid var(--ink, #15130F)",
         borderRadius: 14, padding: 24, cursor: "pointer",
-        boxShadow: hovered ? "8px 8px 0 var(--ink, #15130F)" : "4px 4px 0 var(--ink, #15130F)",
+        boxShadow: hovered ? "8px 8px 0 #F97316" : "4px 4px 0 #F97316",
         transform: hovered ? "translate(-2px, -2px)" : "none",
         transition: "transform 0.18s ease, box-shadow 0.18s ease",
       }}
@@ -41,7 +41,7 @@ export default function RoomCard({ room, onClick }: Props) {
         border: "1.5px solid var(--ink, #15130F)",
         display: "flex", alignItems: "center", justifyContent: "center",
         marginBottom: 18, fontSize: 22,
-        boxShadow: "2px 2px 0 var(--ink, #15130F)",
+        boxShadow: "2px 2px 0 #F97316",
       }}>
         {CARD_ICONS[idx]}
       </div>

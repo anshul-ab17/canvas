@@ -16,7 +16,7 @@ export default function GuestAuthBar({ isSignedIn, onDashboard, onSignIn, darkMo
     border: "1.5px solid var(--ink, #15130F)",
     borderRadius: 10, padding: "8px",
     cursor: "pointer",
-    boxShadow: "3px 3px 0 var(--ink, #15130F)",
+    boxShadow: "3px 3px 0 #F97316",
     display: "flex", alignItems: "center", justifyContent: "center",
     color: "var(--ink, #15130F)",
     transition: "transform 0.1s",
@@ -41,7 +41,7 @@ export default function GuestAuthBar({ isSignedIn, onDashboard, onSignIn, darkMo
           padding: "8px 18px", fontSize: 13, fontWeight: 700,
           fontFamily: "'Inter Tight', sans-serif",
           cursor: "pointer",
-          boxShadow: "3px 3px 0 var(--ink, #15130F)",
+          boxShadow: "3px 3px 0 #F97316",
         }}>
           My Boards
         </button>
@@ -53,7 +53,7 @@ export default function GuestAuthBar({ isSignedIn, onDashboard, onSignIn, darkMo
             borderRadius: 10, padding: "7px 12px",
             fontSize: 12, color: "var(--ink-soft, #3A352C)",
             fontFamily: "'JetBrains Mono', monospace",
-            boxShadow: "3px 3px 0 var(--ink, #15130F)",
+            boxShadow: "3px 3px 0 #F97316",
             display: "none" // Hide text on small screens if needed, or keep for now
           }}>
             Sign in to collaborate
@@ -65,7 +65,7 @@ export default function GuestAuthBar({ isSignedIn, onDashboard, onSignIn, darkMo
             padding: "8px 18px", fontSize: 13, fontWeight: 700,
             fontFamily: "'Inter Tight', sans-serif",
             cursor: "pointer",
-            boxShadow: "3px 3px 0 var(--ink, #15130F)",
+            boxShadow: "3px 3px 0 #F97316",
           }}>
             Sign In
           </button>

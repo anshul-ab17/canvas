@@ -214,7 +214,7 @@ export default function FAQ({ addReveal }: { addReveal: (el: Element | null) => 
           border: 2px solid var(--ink);
           border-radius: 18px;
           overflow: hidden;
-          box-shadow: 8px 8px 0 var(--ink);
+          box-shadow: 8px 8px 0 #F97316;
           margin-top: 32px;
         }
         @media (min-width: 1024px) {
@@ -314,7 +314,7 @@ export default function FAQ({ addReveal }: { addReveal: (el: Element | null) => 
           border: 2px solid var(--ink);
           border-radius: 12px;
           padding: 28px;
-          box-shadow: 4px 4px 0 var(--ink);
+          box-shadow: 4px 4px 0 #F97316;
           flex-grow: 1;
           display: flex;
           align-items: center;

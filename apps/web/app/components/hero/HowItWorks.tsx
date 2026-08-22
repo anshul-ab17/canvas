@@ -167,14 +167,14 @@ export default function HowItWorks({ addReveal }: { addReveal: (el: Element | nu
           background: var(--paper-3);
           border-radius: 16px;
           overflow: hidden;
-          box-shadow: 6px 6px 0 var(--ink);
+          box-shadow: 6px 6px 0 #F97316;
           display: flex;
           flex-direction: column;
           transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
         .how-card:hover {
           transform: translateY(-4px);
-          box-shadow: 8px 8px 0 var(--ink);
+          box-shadow: 8px 8px 0 #F97316;
         }
         .how-card-visual {
           height: 180px;
@@ -247,7 +247,7 @@ export default function HowItWorks({ addReveal }: { addReveal: (el: Element | nu
                   opacity: isActive ? 1 : 0.35,
                   transform: isActive ? "translateY(-6px) scale(1.02)" : "translateY(0) scale(0.97)",
                   filter: isActive ? "none" : "grayscale(30%) blur(0.3px)",
-                  boxShadow: isActive ? "10px 10px 0 var(--ink)" : "4px 4px 0 var(--ink)",
+                  boxShadow: isActive ? "10px 10px 0 #F97316" : "4px 4px 0 #F97316",
                   borderColor: isActive ? ACCENT : "var(--ink)",
                   transition: "all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1)",
                 }}
