@@ -8,10 +8,34 @@ export default function HowItWorks({ addReveal }: { addReveal: (el: Element | nu
 
   useEffect(() => {
     if (isHovered) return;
-    const interval = setInterval(() => {
-      setActiveIndex((prev) => (prev + 1) % 3);
-    }, 3000);
-    return () => clearInterval(interval);
+
+    const handleScroll = () => {
+      const section = document.getElementById("how-it-works");
+      if (!section) return;
+
+      const rect = section.getBoundingClientRect();
+      const viewportCenter = window.innerHeight / 2;
+
+      // Skip scroll state updates if the section is completely out of the viewport
+      if (rect.bottom < 0 || rect.top > window.innerHeight) {
+        return;
+      }
+
+      // Calculate vertical scroll depth fraction inside the section
+      const relativeY = viewportCenter - rect.top;
+      const fraction = relativeY / rect.height;
+      const clampedFraction = Math.max(0, Math.min(0.99, fraction));
+
+      // Map fraction to step index (0, 1, 2)
+      const step = Math.floor(clampedFraction * 3);
+      setActiveIndex(step);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    // Run once on mount to align state immediately
+    handleScroll();
+
+    return () => window.removeEventListener("scroll", handleScroll);
   }, [isHovered]);
 
   const steps = [
