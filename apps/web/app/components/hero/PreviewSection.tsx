@@ -64,7 +64,7 @@ export default function PreviewSection({ addReveal }: { addReveal: (el: Element 
             </span>
           </div>
 
-          <div className="cp-brand" style={{ top: 56 }}><span className="dot" />Canvas</div>
+          <div className="cp-brand" style={{ top: 56 }}><span className="dot" /><img src="/canvas.svg" alt="Canvas" style={{ height: 16, objectFit: "contain" }} /></div>
 
           <div className="cp-toolbar" style={{ top: 56 }}>
             {[
