@@ -37,7 +37,7 @@
   --shadow-lg: 6px 6px 0 #F97316;
   --glass: rgba(244, 239, 230, 0.75);
 
-  /* Footer dynamic colors (light mode: dark footer) */
+  /* Footer dynamic colors (light mode: dark alternate box) */
   --footer-bg: #0A0A0C;
   --footer-text: #ffffff;
   --footer-social: rgba(255, 255, 255, 0.7);
@@ -63,8 +63,8 @@ html[data-theme="dark"] {
   --text-muted: #C9C1B0;
   --glass: rgba(18, 18, 18, 0.75);
 
-  /* Footer dynamic colors (dark mode: light footer) */
-  --footer-bg: #F4EFE6;
+  /* Footer dynamic colors (dark mode: light alternate box) */
+  --footer-bg: #FBF8F1;
   --footer-text: #15130F;
   --footer-social: rgba(21, 19, 15, 0.7);
   --footer-border: rgba(21, 19, 15, 0.15);
@@ -140,15 +140,45 @@ html[data-theme="dark"] .grain {
   opacity: 0.08;
 }
 
-/*  Rise / Reveal animations  */
+/*  Rise / Reveal animations & Bluefin smooth motion  */
 .rise {
   animation: rise 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) both;
 }
 
+@keyframes bobfloat {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-6px) rotate(1deg);
+  }
+}
+
+@keyframes livepulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+    box-shadow: 0 0 0 0 rgba(232, 74, 63, 0.4);
+  }
+  50% {
+    transform: scale(1.08);
+    opacity: 0.85;
+    box-shadow: 0 0 0 6px rgba(232, 74, 63, 0);
+  }
+}
+
+.animate-bobfloat {
+  animation: bobfloat 4.5s ease-in-out infinite;
+}
+
+.animate-livepulse {
+  animation: livepulse 2.2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
 .reveal {
   opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.9s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1);
+  transform: translateY(26px);
+  transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .reveal.in {
@@ -344,7 +374,6 @@ html[data-theme="dark"] .canvas-preview-wrap {
   position: relative;
   border: 1.5px solid var(--ink);
   background: #FBF8F1;
-  box-shadow: 12px 12px 0 #F97316;
   border-radius: 18px;
   overflow: hidden;
   aspect-ratio: 16/10;
@@ -375,7 +404,7 @@ html[data-theme="dark"] .canvas-preview-wrap::before {
   background: #FBF8F1;
   border: 1.5px solid #15130F;
   border-radius: 12px;
-  box-shadow: 3px 3px 0 #F97316;
+  box-shadow: none;
   display: flex;
   gap: 3px;
   padding: 6px;
@@ -411,7 +440,7 @@ html[data-theme="dark"] .canvas-preview-wrap::before {
   background: #FBF8F1;
   border: 1.5px solid #15130F;
   border-radius: 10px;
-  box-shadow: 3px 3px 0 #F97316;
+  box-shadow: none;
   padding: 7px 12px;
   font-family: "Fraunces", serif;
   font-weight: 700;
@@ -428,7 +457,7 @@ html[data-theme="dark"] .canvas-preview-wrap::before {
   height: 9px;
   border-radius: 50%;
   background: #E84A3F;
-  box-shadow: 1.5px 1.5px 0 #F97316;
+  box-shadow: none;
 }
 
 .cp-actions {
@@ -444,7 +473,7 @@ html[data-theme="dark"] .canvas-preview-wrap::before {
   background: #FBF8F1;
   border: 1.5px solid #15130F;
   border-radius: 10px;
-  box-shadow: 3px 3px 0 #F97316;
+  box-shadow: none;
   padding: 7px 12px;
   font-size: 11px;
   font-weight: 600;
@@ -466,7 +495,7 @@ html[data-theme="dark"] .canvas-preview-wrap::before {
   background: #FBF8F1;
   border: 1.5px solid #15130F;
   border-radius: 12px;
-  box-shadow: 4px 4px 0 #F97316;
+  box-shadow: none;
   padding: 12px;
   z-index: 2;
 }
@@ -538,7 +567,7 @@ html[data-theme="dark"] .canvas-preview-wrap::before {
   background: #FBF8F1;
   border: 1.5px solid #15130F;
   border-radius: 10px;
-  box-shadow: 3px 3px 0 #F97316;
+  box-shadow: none;
   display: flex;
   gap: 3px;
   padding: 5px;
@@ -648,25 +677,25 @@ input:focus {
   justify-content: center;
   gap: 10px;
   transition: transform 0.25s cubic-bezier(.2, .8, .2, 1), box-shadow 0.25s;
-  box-shadow: 5px 5px 0 #F97316;
+  box-shadow: none;
   text-decoration: none;
 }
 
 .btn:hover {
   transform: translate(-2px, -2px);
-  box-shadow: 7px 7px 0 #F97316;
+  box-shadow: none;
 }
 
 .btn-primary {
   background: var(--accent);
   color: #fff;
   border-color: var(--accent);
-  box-shadow: 5px 5px 0 #F97316;
+  box-shadow: none;
 }
 
 .btn-primary:hover {
   transform: translate(-2px, -2px);
-  box-shadow: 7px 7px 0 #F97316;
+  box-shadow: none;
 }
 
 .btn-outline {
