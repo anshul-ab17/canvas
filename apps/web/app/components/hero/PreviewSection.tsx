@@ -6,8 +6,8 @@ export default function PreviewSection({ addReveal }: { addReveal: (el: Element 
   const router = useRouter();
 
   return (
-    <section id="peek" style={{ position: "relative", zIndex: 5, minHeight: "80vh", display: "flex", flexDirection: "column", justifyContent: "center", padding: "80px 56px", background: "var(--paper)" }}>
-      <div style={{ maxWidth: 990, margin: "0 auto" }}>
+    <section id="peek" style={{ position: "relative", zIndex: 5, minHeight: "72vh", display: "flex", flexDirection: "column", justifyContent: "center", padding: "64px 0", background: "var(--paper)" }}>
+      <div style={{ maxWidth: 990, margin: "0 auto", width: "100%" }}>
         <SectionTag num="003" label="A peek inside /canvas" addReveal={addReveal} scale={0.8} />
 
         <div className="section-header-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 48, alignItems: "end" }}>
@@ -22,7 +22,7 @@ export default function PreviewSection({ addReveal }: { addReveal: (el: Element 
         </div>
 
         {/* Canvas preview mockup */}
-        <div ref={addReveal} className="reveal canvas-preview-wrap" style={{ maxWidth: 742, margin: "48px auto 0", position: "relative" }}>
+        <div ref={addReveal} className="reveal canvas-preview-wrap" style={{ maxWidth: 668, margin: "40px auto 0", position: "relative" }}>
           {/* Mac Window Title Bar */}
           <div
             style={{

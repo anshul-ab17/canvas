@@ -91,25 +91,14 @@ export default function AuthForm() {
         </div>
         {error && <p style={{ color: "#ff5f56", fontSize: 13, fontWeight: 600, margin: 0 }}>{error}</p>}
         <div style={{ position: "relative", marginTop: 12 }}>
-          {/* Top-Left */}
-          <span style={{ position: "absolute", top: -4, left: -4, width: 16, height: 16, pointerEvents: "none", zIndex: 1 }}>
-            <svg width="16" height="16" viewBox="0 0 16 16"><rect width="16" height="16" fill="#0f0f1f" rx="2"/><circle cx="16" cy="16" r="9" fill="#E84A3F"/><circle cx="16" cy="16" r="5" fill="#F97316"/></svg>
-          </span>
-          {/* Top-Right */}
-          <span style={{ position: "absolute", top: -4, right: -4, width: 16, height: 16, pointerEvents: "none", zIndex: 1 }}>
-            <svg width="16" height="16" viewBox="0 0 16 16"><rect width="16" height="16" fill="#0f0f1f" rx="2"/><circle cx="0" cy="16" r="9" fill="#E84A3F"/><circle cx="0" cy="16" r="5" fill="#F97316"/></svg>
-          </span>
-          {/* Bottom-Left */}
-          <span style={{ position: "absolute", bottom: -4, left: -4, width: 16, height: 16, pointerEvents: "none", zIndex: 1 }}>
-            <svg width="16" height="16" viewBox="0 0 16 16"><rect width="16" height="16" fill="#0f0f1f" rx="2"/><circle cx="16" cy="0" r="9" fill="#E84A3F"/><circle cx="16" cy="0" r="5" fill="#F97316"/></svg>
-          </span>
-          {/* Bottom-Right */}
-          <span style={{ position: "absolute", bottom: -4, right: -4, width: 16, height: 16, pointerEvents: "none", zIndex: 1 }}>
-            <svg width="16" height="16" viewBox="0 0 16 16"><rect width="16" height="16" fill="#0f0f1f" rx="2"/><circle cx="0" cy="0" r="9" fill="#E84A3F"/><circle cx="0" cy="0" r="5" fill="#F97316"/></svg>
-          </span>
+          {/* 4 L-shaped corner accents on outer corners: #FF8C00 */}
+          <span style={{ position: "absolute", top: -3, left: -3, width: 14, height: 14, borderTop: "4.5px solid #FF8C00", borderLeft: "4.5px solid #FF8C00", pointerEvents: "none", zIndex: 1 }} />
+          <span style={{ position: "absolute", top: -3, right: -3, width: 14, height: 14, borderTop: "4.5px solid #FF8C00", borderRight: "4.5px solid #FF8C00", pointerEvents: "none", zIndex: 1 }} />
+          <span style={{ position: "absolute", bottom: -3, left: -3, width: 14, height: 14, borderBottom: "4.5px solid #FF8C00", borderLeft: "4.5px solid #FF8C00", pointerEvents: "none", zIndex: 1 }} />
+          <span style={{ position: "absolute", bottom: -3, right: -3, width: 14, height: 14, borderBottom: "4.5px solid #FF8C00", borderRight: "4.5px solid #FF8C00", pointerEvents: "none", zIndex: 1 }} />
           <button type="submit" disabled={loading} style={{
-            width: "100%", padding: "14px", borderRadius: 6, fontSize: 13, fontWeight: 800,
-            background: "#F97316", color: "#ffffff", border: "none",
+            width: "100%", padding: "14px", borderRadius: 0, fontSize: 13, fontWeight: 800,
+            background: "#E84A3F", color: "#ffffff", border: "none",
             cursor: loading ? "not-allowed" : "pointer",
             opacity: loading ? 0.7 : 1, transition: "transform 0.2s",
             fontFamily: "'Inter Tight', sans-serif", textTransform: "uppercase", letterSpacing: "0.06em"

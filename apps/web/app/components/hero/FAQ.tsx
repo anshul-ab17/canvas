@@ -158,11 +158,12 @@ export default function FAQ({ addReveal }: { addReveal: (el: Element | null) => 
   const [activeIdx, setActiveIdx] = useState<number>(0);
 
   return (
-    <section id="faq" style={{ position: "relative", zIndex: 5, padding: "80px 56px", background: "var(--paper, #ffffff)" }}>
+    <section id="faq" style={{ position: "relative", zIndex: 5, padding: "80px 0", minHeight: "80vh", display: "flex", flexDirection: "column", justifyContent: "center", background: "var(--paper)" }}>
       <style dangerouslySetInnerHTML={{ __html: `
         .faq-container {
           max-width: 990px;
           margin: 0 auto;
+          width: 100%;
         }
         .faq-header-grid {
           display: grid;
@@ -214,7 +215,7 @@ export default function FAQ({ addReveal }: { addReveal: (el: Element | null) => 
           border: 2px solid var(--ink);
           border-radius: 18px;
           overflow: hidden;
-          box-shadow: 8px 8px 0 #F97316;
+          box-shadow: none;
           margin-top: 32px;
         }
         @media (min-width: 1024px) {
@@ -314,7 +315,7 @@ export default function FAQ({ addReveal }: { addReveal: (el: Element | null) => 
           border: 2px solid var(--ink);
           border-radius: 12px;
           padding: 28px;
-          box-shadow: 4px 4px 0 #F97316;
+          box-shadow: none;
           flex-grow: 1;
           display: flex;
           align-items: center;

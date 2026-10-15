@@ -7,36 +7,32 @@ export default function HowItWorks({ addReveal }: { addReveal: (el: Element | nu
   const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
-    if (isHovered) return;
-
     const handleScroll = () => {
-      const section = document.getElementById("how-it-works");
-      if (!section) return;
+      const container = document.getElementById("how-it-works-container");
+      if (!container) return;
 
-      const rect = section.getBoundingClientRect();
-      const viewportCenter = window.innerHeight / 2;
+      const rect = container.getBoundingClientRect();
+      const totalScrollable = rect.height - window.innerHeight;
+      if (totalScrollable <= 0) return;
 
-      // Skip scroll state updates if the section is completely out of the viewport
-      if (rect.bottom < 0 || rect.top > window.innerHeight) {
-        return;
+      // Current progress through the sticky height
+      const scrolled = -rect.top;
+      const progress = Math.max(0, Math.min(1, scrolled / totalScrollable));
+
+      if (progress < 0.33) {
+        setActiveIndex(0);
+      } else if (progress < 0.67) {
+        setActiveIndex(1);
+      } else {
+        setActiveIndex(2);
       }
-
-      // Calculate vertical scroll depth fraction inside the section
-      const relativeY = viewportCenter - rect.top;
-      const fraction = relativeY / rect.height;
-      const clampedFraction = Math.max(0, Math.min(0.99, fraction));
-
-      // Map fraction to step index (0, 1, 2)
-      const step = Math.floor(clampedFraction * 3);
-      setActiveIndex(step);
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
-    // Run once on mount to align state immediately
     handleScroll();
 
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [isHovered]);
+  }, []);
 
   const steps = [
     {
@@ -104,12 +100,14 @@ export default function HowItWorks({ addReveal }: { addReveal: (el: Element | nu
   ];
 
   return (
-    <section id="how-it-works" style={{ position: "relative", zIndex: 5, padding: "80px 56px", minHeight: "80vh", display: "flex", flexDirection: "column", justifyContent: "center", background: "var(--paper-2)" }}>
-      <style dangerouslySetInnerHTML={{ __html: `
-        .how-container {
-          max-width: 990px;
-          margin: 0 auto;
-        }
+    <div id="how-it-works-container" style={{ position: "relative", height: "260vh", background: "var(--paper-2)" }}>
+      <section id="how-it-works" style={{ position: "sticky", top: 0, height: "100vh", zIndex: 5, padding: "40px 0", display: "flex", flexDirection: "column", justifyContent: "center", background: "var(--paper-2)", overflow: "hidden" }}>
+        <style dangerouslySetInnerHTML={{ __html: `
+          .how-container {
+            max-width: 990px;
+            margin: 0 auto;
+            width: 100%;
+          }
         .how-header-grid {
           display: grid;
           grid-template-columns: 1fr;
@@ -167,14 +165,14 @@ export default function HowItWorks({ addReveal }: { addReveal: (el: Element | nu
           background: var(--paper-3);
           border-radius: 16px;
           overflow: hidden;
-          box-shadow: 6px 6px 0 #F97316;
+          box-shadow: none;
           display: flex;
           flex-direction: column;
           transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
         .how-card:hover {
           transform: translateY(-4px);
-          box-shadow: 8px 8px 0 #F97316;
+          box-shadow: none;
         }
         .how-card-visual {
           height: 180px;
@@ -247,7 +245,7 @@ export default function HowItWorks({ addReveal }: { addReveal: (el: Element | nu
                   opacity: isActive ? 1 : 0.35,
                   transform: isActive ? "translateY(-6px) scale(1.02)" : "translateY(0) scale(0.97)",
                   filter: isActive ? "none" : "grayscale(30%) blur(0.3px)",
-                  boxShadow: isActive ? "10px 10px 0 #F97316" : "4px 4px 0 #F97316",
+                  boxShadow: "none",
                   borderColor: isActive ? ACCENT : "var(--ink)",
                   transition: "all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1)",
                 }}
@@ -266,5 +264,6 @@ export default function HowItWorks({ addReveal }: { addReveal: (el: Element | nu
         </div>
       </div>
     </section>
-  );
+  </div>
+);
 }

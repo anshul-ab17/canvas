@@ -19,10 +19,36 @@ const HeroButton = ({ onClick, children, primary, ghost }: { onClick: () => void
     transform: hov ? "translate(-1.5px,-1.5px)" : "translate(0,0)",
   };
   if (ghost) return (
-    <button onClick={onClick} onMouseEnter={() => setHov(true)} onMouseLeave={() => setHov(false)}
-      style={{ ...base, background: hov ? "var(--ink)" : "transparent", color: hov ? "var(--paper)" : "var(--ink)", boxShadow: "none" }}>
-      {children}
-    </button>
+    <div
+      style={{
+        position: "relative",
+        display: "inline-block",
+        margin: "6px",
+      }}
+    >
+      <button onClick={onClick} onMouseEnter={() => setHov(true)} onMouseLeave={() => setHov(false)}
+        style={{
+          border: `1.2px solid var(--ink)`,
+          background: hov ? "var(--ink)" : "transparent",
+          color: hov ? "var(--paper)" : "var(--ink)",
+          boxShadow: "none",
+          width: "132px",
+          height: "38px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          fontFamily: "'Inter Tight', sans-serif",
+          fontWeight: 800,
+          fontSize: 10.5,
+          letterSpacing: "0.04em",
+          textTransform: "uppercase",
+          cursor: "pointer",
+          borderRadius: "0px",
+          transition: "background 0.2s, color 0.2s",
+        }}>
+        {children}
+      </button>
+    </div>
   );
   return (
     <div
@@ -30,74 +56,31 @@ const HeroButton = ({ onClick, children, primary, ghost }: { onClick: () => void
         position: "relative",
         display: "inline-block",
         margin: "6px",
-        background: ACCENT,
       }}
     >
-      {/* Top-Left Bracket */}
-      <span
-        style={{
-          position: "absolute",
-          top: "0px",
-          left: "0px",
-          width: "12px",
-          height: "12px",
-          background: `radial-gradient(circle at 100% 100%, transparent 8px, var(--ink) 8.5px)`,
-          pointerEvents: "none",
-        }}
-      />
-      {/* Top-Right Bracket */}
-      <span
-        style={{
-          position: "absolute",
-          top: "0px",
-          right: "0px",
-          width: "12px",
-          height: "12px",
-          background: `radial-gradient(circle at 0% 100%, transparent 8px, var(--ink) 8.5px)`,
-          pointerEvents: "none",
-        }}
-      />
-      {/* Bottom-Left Bracket */}
-      <span
-        style={{
-          position: "absolute",
-          bottom: "0px",
-          left: "0px",
-          width: "12px",
-          height: "12px",
-          background: `radial-gradient(circle at 100% 0%, transparent 8px, var(--ink) 8.5px)`,
-          pointerEvents: "none",
-        }}
-      />
-      {/* Bottom-Right Bracket */}
-      <span
-        style={{
-          position: "absolute",
-          bottom: "0px",
-          right: "0px",
-          width: "12px",
-          height: "12px",
-          background: `radial-gradient(circle at 0% 0%, transparent 8px, var(--ink) 8.5px)`,
-          pointerEvents: "none",
-        }}
-      />
+      {/* 4 L-shaped corner accents on outer corners: #FF8C00 */}
+      <span style={{ position: "absolute", top: -3, left: -3, width: 12, height: 12, borderTop: "4.5px solid #FF8C00", borderLeft: "4.5px solid #FF8C00", pointerEvents: "none" }} />
+      <span style={{ position: "absolute", top: -3, right: -3, width: 12, height: 12, borderTop: "4.5px solid #FF8C00", borderRight: "4.5px solid #FF8C00", pointerEvents: "none" }} />
+      <span style={{ position: "absolute", bottom: -3, left: -3, width: 12, height: 12, borderBottom: "4.5px solid #FF8C00", borderLeft: "4.5px solid #FF8C00", pointerEvents: "none" }} />
+      <span style={{ position: "absolute", bottom: -3, right: -3, width: 12, height: 12, borderBottom: "4.5px solid #FF8C00", borderRight: "4.5px solid #FF8C00", pointerEvents: "none" }} />
 
       <button
         onClick={onClick}
         style={{
-          background: ACCENT,
+          background: "#E84A3F",
           color: "#ffffff",
           border: "none",
-          borderRadius: "8px",
-          width: "220px",
-          height: "46px",
+          borderRadius: "0px",
+          width: "132px",
+          height: "38px",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
           fontFamily: "'Inter Tight', sans-serif",
-          fontWeight: 700,
-          fontSize: 12.5,
-          letterSpacing: "0.02em",
+          fontWeight: 800,
+          fontSize: 10.5,
+          letterSpacing: "0.04em",
+          textTransform: "uppercase",
           cursor: "pointer",
         }}
       >
@@ -207,7 +190,7 @@ export default function HeroSection({ scrollTo, addReveal }: { scrollTo: (id: st
         gridTemplateRows: "auto 1fr",
         gridTemplateColumns: "1.05fr 1fr",
         alignItems: "start",
-        padding: "90px 56px 60px",
+        padding: "90px 0 60px",
         gap: 24,
         zIndex: 5,
         maxWidth: 990,
@@ -219,8 +202,8 @@ export default function HeroSection({ scrollTo, addReveal }: { scrollTo: (id: st
         </div>
 
         {/* Left copy */}
-        <div className="hero-left-copy" style={{ position: "relative", zIndex: 6, alignSelf: "end", marginBottom: 90, paddingLeft: "16px" }}>
-          <h1 className="rise" style={{ animationDelay: "0.15s", fontFamily: "'Fraunces',serif", fontWeight: 500, lineHeight: 0.94, letterSpacing: "-0.035em", margin: 0, color: "var(--ink)", fontSize: "clamp(13px,1.9vw,27px)" }}>
+        <div className="hero-left-copy" style={{ position: "relative", zIndex: 6, alignSelf: "end", marginBottom: 130, paddingLeft: "48px" }}>
+          <h1 className="rise" style={{ animationDelay: "0.15s", fontFamily: "'Fraunces',serif", fontWeight: 500, lineHeight: 0.94, letterSpacing: "-0.035em", margin: 0, color: "var(--ink)", fontSize: "clamp(18px,2.66vw,38px)" }}>
             Draw<span style={{ color: ACCENT }}>.</span>{" "}
             <em style={{ fontStyle: "italic", fontWeight: 400 }}>Think</em><span style={{ color: ACCENT }}>.</span><br />
             <span style={{ position: "relative", display: "inline-block" }}>
@@ -232,11 +215,9 @@ export default function HeroSection({ scrollTo, addReveal }: { scrollTo: (id: st
             <span style={{ color: "var(--ink-soft)" }}>together.</span>
           </h1>
 
-          <div className="rise" style={{ animationDelay: "0.3s", marginTop: 32, display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 10 }}>
+          <div className="rise" style={{ animationDelay: "0.3s", marginTop: 32, display: "flex", flexDirection: "row", alignItems: "center", gap: 12, flexWrap: "wrap" }}>
             <HeroButton onClick={() => router.push("/canvas")} primary>Open a new canvas</HeroButton>
-            <div style={{ marginLeft: 4 }}>
-              <HeroButton onClick={() => scrollTo("how-it-works")} ghost>How it works</HeroButton>
-            </div>
+            <HeroButton onClick={() => scrollTo("how-it-works")} ghost>How it works</HeroButton>
           </div>
         </div>
 
@@ -319,19 +300,19 @@ export default function HeroSection({ scrollTo, addReveal }: { scrollTo: (id: st
             {/* L3 — yellow sticky */}
             <div ref={layerRef(3)} className="hero-layer"
               style={{ left: "50%", top: "50%", marginLeft: 60, marginTop: -220, transform: L(3).orig }}>
-              <div className="sticky-note" style={{ width: 170, transform: "rotate(7deg)" }}>ship by<br />friday ✱</div>
+              <div className="sticky-note animate-bobfloat" style={{ width: 170, transform: "rotate(7deg)" }}>ship by<br />friday ✱</div>
             </div>
 
             {/* L4 — blue sticky */}
             <div ref={layerRef(4)} className="hero-layer"
               style={{ left: "50%", top: "50%", marginLeft: -360, marginTop: 60, transform: L(4).orig }}>
-              <div className="sticky-note blue" style={{ width: 180, transform: "rotate(-6deg)" }}>who owns<br />onboarding?</div>
+              <div className="sticky-note blue animate-bobfloat" style={{ width: 180, transform: "rotate(-6deg)", animationDelay: "1.2s" }}>who owns<br />onboarding?</div>
             </div>
 
             {/* L5 — green sticky */}
             <div ref={layerRef(5)} className="hero-layer"
               style={{ left: "50%", top: "50%", marginLeft: 75, marginTop: 80, transform: L(5).orig }}>
-              <div className="sticky-note green" style={{ width: 130, fontSize: 18, transform: "rotate(-4deg)" }}>✓ shipped</div>
+              <div className="sticky-note green animate-bobfloat" style={{ width: 130, fontSize: 18, transform: "rotate(-4deg)", animationDelay: "2.4s" }}>✓ shipped</div>
             </div>
 
             {/* L6 — avatars */}
@@ -339,7 +320,7 @@ export default function HeroSection({ scrollTo, addReveal }: { scrollTo: (id: st
               style={{ left: "50%", top: "50%", marginLeft: -340, marginTop: -220, transform: L(6).orig }}>
               <div style={{ display: "flex" }}>
                 {[{ bg: AMBER, l: "AB" }, { bg: BLUE, l: "SM" }, { bg: GREEN, l: "IR" }, { bg: PAPER, l: "+11", c: INK_SOFT }].map((a, i) => (
-                  <div key={i} className="avatar-chip" style={{ background: a.bg, marginLeft: i > 0 ? -12 : 0, color: a.c || INK }}>{a.l}</div>
+                  <div key={i} className={`avatar-chip${i === 0 ? " animate-livepulse" : ""}`} style={{ background: a.bg, marginLeft: i > 0 ? -12 : 0, color: a.c || INK }}>{a.l}</div>
                 ))}
               </div>
             </div>
@@ -347,7 +328,7 @@ export default function HeroSection({ scrollTo, addReveal }: { scrollTo: (id: st
             {/* L7 — cursor Marta */}
             <div ref={layerRef(7)} className="hero-layer"
               style={{ left: "50%", top: "50%", marginLeft: -40, marginTop: -40, transform: L(7).orig }}>
-              <div className="cursor-flag">
+              <div className="cursor-flag animate-bobfloat" style={{ animationDuration: "3.2s" }}>
                 <svg width="22" height="24" viewBox="0 0 22 24" fill={ACCENT3} stroke={INK} strokeWidth="1.5"><path d="M2 2 L2 20 L7 16 L10 22 L13 20 L10 14 L18 14 Z" strokeLinejoin="round" /></svg>
                 <div className="flag-tag" style={{ background: ACCENT3 }}>Marta</div>
               </div>
@@ -356,7 +337,7 @@ export default function HeroSection({ scrollTo, addReveal }: { scrollTo: (id: st
             {/* L8 — cursor Jules */}
             <div ref={layerRef(8)} className="hero-layer"
               style={{ left: "50%", top: "50%", marginLeft: 70, marginTop: 0, transform: L(8).orig }}>
-              <div className="cursor-flag">
+              <div className="cursor-flag animate-bobfloat" style={{ animationDuration: "3.8s", animationDelay: "0.8s" }}>
                 <svg width="22" height="24" viewBox="0 0 22 24" fill={ACCENT4} stroke={INK} strokeWidth="1.5"><path d="M2 2 L2 20 L7 16 L10 22 L13 20 L10 14 L18 14 Z" strokeLinejoin="round" /></svg>
                 <div className="flag-tag" style={{ background: ACCENT4 }}>Jules</div>
               </div>
@@ -400,11 +381,11 @@ export default function HeroSection({ scrollTo, addReveal }: { scrollTo: (id: st
               </svg>
               drag the canvas &mdash; it&rsquo;s alive
             </div>
-            <div>Lat. 37.77 / Lon. -122.42</div>
-            <div><b style={{ color: "var(--ink)", fontWeight: 500 }}>Built in the open.</b> Self-host or cloud.</div>
+            <div>Global Edge Nodes &middot; 99.99% Uptime</div>
+            <div><b style={{ color: "var(--ink)", fontWeight: 500 }}>Open Source &amp; Local-First.</b> Deploy anywhere.</div>
           </div>
           <div style={{ fontFamily: "'Fraunces',serif", fontStyle: "italic", fontWeight: 300, fontSize: 75, lineHeight: 0.8, color: "var(--ink)", letterSpacing: "-0.04em", opacity: 0.07, userSelect: "none" }}>canvas</div>
-          <div style={{ textAlign: "right" }}><div>No. 001 — May &rsquo;26</div><div><b style={{ color: "var(--ink)", fontWeight: 500 }}>14,302 boards opened today</b></div></div>
+          <div style={{ textAlign: "right" }}><div>v1.0.0 &mdash; Stable Release</div><div><b style={{ color: "var(--ink)", fontWeight: 500 }}>Real-time multiplayer active</b></div></div>
         </div>
       </div>
     </section>

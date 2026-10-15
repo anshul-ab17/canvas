@@ -43,9 +43,6 @@ const NavLink = ({ label, onClick }: { label: string; onClick: () => void }) => 
 };
 
 const CtaButton = ({ label, onClick }: { label: string; onClick: () => void }) => {
-  const CORNER = 16;
-  const DARK = "#0f0f1f";
-  const RED  = "#E84A3F";
   return (
     <div
       onClick={onClick}
@@ -56,21 +53,21 @@ const CtaButton = ({ label, onClick }: { label: string; onClick: () => void }) =
         margin: "6px",
       }}
     >
-      {/* Orange button body */}
+      {/* Inside rectangle: sharp 90-degree corners, #E84A3F */}
       <button
         style={{
-          background: ACCENT,
+          background: "#E84A3F",
           color: "#ffffff",
           border: "none",
-          borderRadius: "6px",
-          width: "160px",
-          height: "44px",
+          borderRadius: "0px",
+          width: "96px",
+          height: "34px",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
           fontFamily: "'Inter Tight', sans-serif",
           fontWeight: 800,
-          fontSize: 13,
+          fontSize: 11.5,
           letterSpacing: "0.06em",
           textTransform: "uppercase",
           cursor: "pointer",
@@ -78,22 +75,11 @@ const CtaButton = ({ label, onClick }: { label: string; onClick: () => void }) =
       >
         {label}
       </button>
-      {/* Top-Left corner bracket */}
-      <span style={{ position: "absolute", top: -4, left: -4, width: CORNER, height: CORNER, pointerEvents: "none" }}>
-        <svg width={CORNER} height={CORNER} viewBox="0 0 16 16"><rect width="16" height="16" fill={DARK} rx="2"/><circle cx="16" cy="16" r="9" fill={RED}/><circle cx="16" cy="16" r="5" fill={ACCENT}/></svg>
-      </span>
-      {/* Top-Right corner bracket */}
-      <span style={{ position: "absolute", top: -4, right: -4, width: CORNER, height: CORNER, pointerEvents: "none" }}>
-        <svg width={CORNER} height={CORNER} viewBox="0 0 16 16"><rect width="16" height="16" fill={DARK} rx="2"/><circle cx="0" cy="16" r="9" fill={RED}/><circle cx="0" cy="16" r="5" fill={ACCENT}/></svg>
-      </span>
-      {/* Bottom-Left corner bracket */}
-      <span style={{ position: "absolute", bottom: -4, left: -4, width: CORNER, height: CORNER, pointerEvents: "none" }}>
-        <svg width={CORNER} height={CORNER} viewBox="0 0 16 16"><rect width="16" height="16" fill={DARK} rx="2"/><circle cx="16" cy="0" r="9" fill={RED}/><circle cx="16" cy="0" r="5" fill={ACCENT}/></svg>
-      </span>
-      {/* Bottom-Right corner bracket */}
-      <span style={{ position: "absolute", bottom: -4, right: -4, width: CORNER, height: CORNER, pointerEvents: "none" }}>
-        <svg width={CORNER} height={CORNER} viewBox="0 0 16 16"><rect width="16" height="16" fill={DARK} rx="2"/><circle cx="0" cy="0" r="9" fill={RED}/><circle cx="0" cy="0" r="5" fill={ACCENT}/></svg>
-      </span>
+      {/* 4 L-shaped corner accents on outer corners: #FF8C00 */}
+      <span style={{ position: "absolute", top: -3, left: -3, width: 11, height: 11, borderTop: "4px solid #FF8C00", borderLeft: "4px solid #FF8C00", pointerEvents: "none" }} />
+      <span style={{ position: "absolute", top: -3, right: -3, width: 11, height: 11, borderTop: "4px solid #FF8C00", borderRight: "4px solid #FF8C00", pointerEvents: "none" }} />
+      <span style={{ position: "absolute", bottom: -3, left: -3, width: 11, height: 11, borderBottom: "4px solid #FF8C00", borderLeft: "4px solid #FF8C00", pointerEvents: "none" }} />
+      <span style={{ position: "absolute", bottom: -3, right: -3, width: 11, height: 11, borderBottom: "4px solid #FF8C00", borderRight: "4px solid #FF8C00", pointerEvents: "none" }} />
     </div>
   );
 };
@@ -119,7 +105,7 @@ export default function Navbar({ scrolled, isLoggedIn, darkMode, toggleDark, scr
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
-        padding: "16px 56px",
+        padding: "16px 0",
         borderBottom: "none",
       }}>
         {/* Brand Logo */}
@@ -127,13 +113,20 @@ export default function Navbar({ scrolled, isLoggedIn, darkMode, toggleDark, scr
           style={{
             display: "flex",
             alignItems: "center",
+            gap: 10,
+            fontFamily: "'Fraunces', serif",
+            fontWeight: 700,
+            fontSize: 22,
+            color: "var(--ink)",
             background: "none",
             border: "none",
             cursor: "pointer",
+            letterSpacing: "-0.01em",
             padding: 0,
           }}
         >
-          <img src="/canvas.svg" alt="Canvas" style={{ height: 32, objectFit: "contain" }} />
+          <img src="/canvas.svg" alt="Canvas" style={{ height: 28, objectFit: "contain" }} />
+          Canvas
         </button>
 
         {/* Navigation Links */}

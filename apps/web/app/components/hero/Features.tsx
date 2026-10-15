@@ -84,11 +84,12 @@ export default function Features({ addReveal }: { addReveal: (el: Element | null
   ];
 
   return (
-    <section style={{ position: "relative", zIndex: 5, padding: "80px 56px", minHeight: "80vh", display: "flex", flexDirection: "column", justifyContent: "center", background: "var(--paper)" }}>
+    <section style={{ position: "relative", zIndex: 5, padding: "80px 0", minHeight: "80vh", display: "flex", flexDirection: "column", justifyContent: "center", background: "var(--paper)" }}>
       <style dangerouslySetInnerHTML={{ __html: `
         .features-container {
           max-width: 990px;
           margin: 0 auto;
+          width: 100%;
         }
         .features-header-grid {
           display: grid;

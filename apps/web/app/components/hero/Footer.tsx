@@ -8,15 +8,27 @@ export default function Footer() {
   const [btnHov, setBtnHov] = useState(false);
 
   return (
-    <footer style={{ background: "var(--footer-bg)", color: "var(--footer-text)", padding: "80px 56px 40px", fontFamily: "'Inter Tight', sans-serif", position: "relative", zIndex: 10 }}>
-      <style dangerouslySetInnerHTML={{ __html: `
-        .footer-grid {
-          display: grid;
-          grid-template-columns: 1fr;
-          gap: 40px;
-          max-width: 990px;
-          margin: 0 auto;
-        }
+    <footer style={{ background: "var(--paper)", padding: "40px 0 0", fontFamily: "'Inter Tight', sans-serif", position: "relative", zIndex: 10 }}>
+      <div style={{
+        maxWidth: 990,
+        margin: "0 auto",
+        background: "var(--footer-bg)",
+        color: "var(--footer-text)",
+        borderTopLeftRadius: 20,
+        borderTopRightRadius: 20,
+        borderBottomLeftRadius: 0,
+        borderBottomRightRadius: 0,
+        padding: "60px 48px 40px",
+        border: "1.5px solid var(--border)",
+        borderBottom: "none",
+      }}>
+        <style dangerouslySetInnerHTML={{ __html: `
+          .footer-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 40px;
+            width: 100%;
+          }
         @media (min-width: 1024px) {
           .footer-grid {
             grid-template-columns: 1.2fr 2fr;
@@ -138,14 +150,29 @@ export default function Footer() {
         <div style={{ display: "flex", flexDirection: "column", gap: 32 }}>
           <div 
             onClick={() => router.push("/")}
-            style={{ cursor: "pointer", userSelect: "none" }}
+            style={{ 
+              display: "flex", 
+              alignItems: "center", 
+              gap: 12, 
+              cursor: "pointer", 
+              userSelect: "none" 
+            }}
           >
-            <img src="/canvas.svg" alt="Canvas" style={{ height: 40, objectFit: "contain" }} />
+            <img src="/canvas.svg" alt="Canvas" style={{ height: 38, objectFit: "contain" }} />
+            <span style={{ 
+              fontFamily: "'Fraunces', serif", 
+              fontWeight: 700, 
+              fontSize: 26, 
+              color: "var(--footer-text)", 
+              letterSpacing: "-0.01em" 
+            }}>
+              Canvas
+            </span>
           </div>
           
           <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
             <h3 style={{ fontFamily: "'Fraunces', serif", fontSize: "28px", fontWeight: 400, margin: 0, lineHeight: 1.1 }}>
-              Stop drawing in <em style={{ fontStyle: "italic", color: ACCENT, fontWeight: 400 }}>PowerPoint.</em>
+              Think faster on an <em style={{ fontStyle: "italic", color: ACCENT, fontWeight: 400 }}>infinite canvas.</em>
             </h3>
             <div
               style={{
@@ -157,74 +184,35 @@ export default function Footer() {
               onMouseEnter={() => setBtnHov(true)}
               onMouseLeave={() => setBtnHov(false)}
             >
-              {/* Top-Left Bracket */}
-              <span
-                style={{
-                  position: "absolute", top: -4, left: -4, width: 16, height: 16,
-                  pointerEvents: "none",
-                  transition: "transform 0.2s ease",
-                  transform: btnHov ? "scale(0.85)" : "scale(1)",
-                }}
-              >
-                <svg width="16" height="16" viewBox="0 0 16 16"><rect width="16" height="16" fill="#0f0f1f" rx="2"/><circle cx="16" cy="16" r="9" fill="#E84A3F"/><circle cx="16" cy="16" r="5" fill="#F97316"/></svg>
-              </span>
-              {/* Top-Right Bracket */}
-              <span
-                style={{
-                  position: "absolute", top: -4, right: -4, width: 16, height: 16,
-                  pointerEvents: "none",
-                  transition: "transform 0.2s ease",
-                  transform: btnHov ? "scale(0.85)" : "scale(1)",
-                }}
-              >
-                <svg width="16" height="16" viewBox="0 0 16 16"><rect width="16" height="16" fill="#0f0f1f" rx="2"/><circle cx="0" cy="16" r="9" fill="#E84A3F"/><circle cx="0" cy="16" r="5" fill="#F97316"/></svg>
-              </span>
-              {/* Bottom-Left Bracket */}
-              <span
-                style={{
-                  position: "absolute", bottom: -4, left: -4, width: 16, height: 16,
-                  pointerEvents: "none",
-                  transition: "transform 0.2s ease",
-                  transform: btnHov ? "scale(0.85)" : "scale(1)",
-                }}
-              >
-                <svg width="16" height="16" viewBox="0 0 16 16"><rect width="16" height="16" fill="#0f0f1f" rx="2"/><circle cx="16" cy="0" r="9" fill="#E84A3F"/><circle cx="16" cy="0" r="5" fill="#F97316"/></svg>
-              </span>
-              {/* Bottom-Right Bracket */}
-              <span
-                style={{
-                  position: "absolute", bottom: -4, right: -4, width: 16, height: 16,
-                  pointerEvents: "none",
-                  transition: "transform 0.2s ease",
-                  transform: btnHov ? "scale(0.85)" : "scale(1)",
-                }}
-              >
-                <svg width="16" height="16" viewBox="0 0 16 16"><rect width="16" height="16" fill="#0f0f1f" rx="2"/><circle cx="0" cy="0" r="9" fill="#E84A3F"/><circle cx="0" cy="0" r="5" fill="#F97316"/></svg>
-              </span>
+              {/* 4 L-shaped corner accents on outer corners: #FF8C00 */}
+              <span style={{ position: "absolute", top: -3, left: -3, width: 12, height: 12, borderTop: "4.5px solid #FF8C00", borderLeft: "4.5px solid #FF8C00", pointerEvents: "none", transition: "transform 0.2s ease", transform: btnHov ? "scale(0.85)" : "scale(1)" }} />
+              <span style={{ position: "absolute", top: -3, right: -3, width: 12, height: 12, borderTop: "4.5px solid #FF8C00", borderRight: "4.5px solid #FF8C00", pointerEvents: "none", transition: "transform 0.2s ease", transform: btnHov ? "scale(0.85)" : "scale(1)" }} />
+              <span style={{ position: "absolute", bottom: -3, left: -3, width: 12, height: 12, borderBottom: "4.5px solid #FF8C00", borderLeft: "4.5px solid #FF8C00", pointerEvents: "none", transition: "transform 0.2s ease", transform: btnHov ? "scale(0.85)" : "scale(1)" }} />
+              <span style={{ position: "absolute", bottom: -3, right: -3, width: 12, height: 12, borderBottom: "4.5px solid #FF8C00", borderRight: "4.5px solid #FF8C00", pointerEvents: "none", transition: "transform 0.2s ease", transform: btnHov ? "scale(0.85)" : "scale(1)" }} />
 
               <button
                 onClick={() => router.push("/canvas")}
                 style={{
-                  background: "#F97316",
+                  background: "#E84A3F",
                   color: "#ffffff",
                   border: "none",
-                  borderRadius: "6px",
-                  width: "220px",
-                  height: "46px",
+                  borderRadius: "0px",
+                  width: "132px",
+                  height: "38px",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
                   fontFamily: "'Inter Tight', sans-serif",
                   fontWeight: 800,
-                  fontSize: 13,
-                  letterSpacing: "0.06em",
+                  fontSize: 10.5,
+                  letterSpacing: "0.04em",
                   textTransform: "uppercase",
                   cursor: "pointer",
                   transition: "opacity 0.2s, transform 0.1s",
                   transform: btnHov ? "scale(0.98)" : "scale(1)",
                 }}
               >
-                Open a new canvas
+                Open canvas
               </button>
             </div>
             <span style={{ fontFamily: "'Caveat', cursive", fontSize: 20, color: AMBER }}>
@@ -242,7 +230,14 @@ export default function Footer() {
               <a href="/signin" className="footer-menu-item">Sign In</a>
             </div>
             <div>
+              <a href="#features" className="footer-menu-item">Features</a>
+              <a href="#how-it-works" className="footer-menu-item">How it works</a>
+              <a href="#peek" className="footer-menu-item">Canvas</a>
+              <a href="#faq" className="footer-menu-item">FAQ</a>
+            </div>
+            <div>
               <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="footer-menu-item">GitHub</a>
+              <a href="https://x.com" target="_blank" rel="noopener noreferrer" className="footer-menu-item">X</a>
             </div>
           </div>
 
@@ -272,15 +267,16 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Bottom Area */}
-      <div className="footer-bottom-grid" style={{ display: "block", borderTop: "1px solid var(--footer-border)", paddingTop: 40, maxWidth: 990, margin: "40px auto 0" }}>
-        <div className="copyright-text" style={{ textAlign: "center" as const }}>
-          <p style={{ margin: "0 0 8px" }}>
-            © 2026 Canvas · open source · MIT. All rights reserved.
-          </p>
-          <p style={{ margin: 0, opacity: 0.7 }}>
-            made with — and on — Canvas. Designed with precision.
-          </p>
+        {/* Bottom Area */}
+        <div className="footer-bottom-grid" style={{ display: "block", borderTop: "1px solid var(--footer-border)", paddingTop: 32, width: "100%", margin: "32px auto 0" }}>
+          <div className="copyright-text" style={{ textAlign: "center" as const }}>
+            <p style={{ margin: "0 0 8px" }}>
+              © 2026 Canvas · open source · MIT. All rights reserved.
+            </p>
+            <p style={{ margin: 0, opacity: 0.7 }}>
+              made with — and on — Canvas. Designed with precision.
+            </p>
+          </div>
         </div>
       </div>
     </footer>
